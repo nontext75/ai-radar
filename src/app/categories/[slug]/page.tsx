@@ -1,0 +1,65 @@
+import Link from "next/link";
+import { CATEGORIES, ITEMS } from "@/lib/data";
+import { notFound } from "next/navigation";
+
+function ChevronUp() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+      <path d="M1.5 6.5L5 3L8.5 6.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const cat = CATEGORIES.find((c) => c.slug === slug);
+  if (!cat) notFound();
+
+  const items = ITEMS.filter((i) => i.catSlug === slug);
+  const displayItems = items.length > 0 ? items : ITEMS.slice(0, 4);
+
+  return (
+    <>
+      <div className="page-header">
+        <div className="page-wrap">
+          <Link href="/categories" style={{ fontSize: "0.875rem", color: "var(--muted)", display: "inline-flex", alignItems: "center", gap: "4px", marginBottom: "0.75rem" }}>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 2.5L4.5 6l3 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            카테고리
+          </Link>
+          <h1 className="page-title">{cat.label}</h1>
+          <p className="page-desc">{cat.desc}</p>
+        </div>
+      </div>
+
+      <div className="page-body">
+        <div className="page-wrap page-body-inner">
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
+            <p style={{ fontSize: "0.875rem", color: "var(--muted)" }}>{cat.count}개 리소스</p>
+          </div>
+
+          <div className="card card-elevated" style={{ overflow: "hidden" }}>
+            {displayItems.map((item, idx) => (
+              <div key={item.id} className="feed-row anim-fade-up" style={{ borderBottom: idx < displayItems.length - 1 ? "1px solid var(--border)" : "none", animationDelay: `${idx * 0.05}s` }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "2px" }}>
+                  <button className="upvote-btn" aria-label={`${item.title} 추천`}>
+                    <ChevronUp />
+                    {item.votes}
+                  </button>
+                </div>
+                <div>
+                  <h2 className="feed-item-title">{item.title}</h2>
+                  <p className="feed-item-desc">{item.desc}</p>
+                  <div className="feed-item-meta">
+                    <span>{item.author}</span>
+                    <span>·</span>
+                    <span>{item.time}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
