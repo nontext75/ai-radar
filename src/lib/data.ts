@@ -50,16 +50,40 @@ export const CATEGORIES: CategoryEntry[] = [
 ];
 
 export const ITEMS: FeedItem[] = [
-  { id: 1,  cat: "MCP 서버",    catSlug: "mcp",        title: "Claude MCP 파일시스템 서버",        desc: "Claude가 로컬 파일을 직접 읽고 쓸 수 있게 해주는 공식 MCP 서버. 코딩 에이전트 워크플로우에 필수.", votes: 482, author: "Anthropic",    time: "2시간 전", hot: true  },
-  { id: 2,  cat: "프롬프트",    catSlug: "prompts",    title: "체인오브트 마스터 프롬프트 v3",    desc: "GPT-4o, Claude, Gemini에서 검증된 복잡 추론 유도 프롬프트. 정확도 37% 이상.",               votes: 319, author: "프롬프트장인",  time: "4시간 전", hot: false },
-  { id: 3,  cat: "워크플로우",  catSlug: "workflows",  title: "n8n × Claude 콘텐츠 파이프라인",    desc: "RSS 수집 → Claude 요약 → Notion 자동 전송하는 n8n 워크플로우 파일 포함.",                    votes: 256, author: "자동화마법사", time: "6시간 전", hot: false },
-  { id: 4,  cat: "모델",        catSlug: "models",     title: "Gemini 1.5 Pro 컨텍스트 2M 사용기",   desc: "코드베이스 전체를 컨텍스트에 넣고 리팩토링한 경험. 생산성 가시적으로 상승.",           votes: 198, author: "dev.kimchi",  time: "어제",    hot: false },
-  { id: 5,  cat: "AI 에이전트", catSlug: "agents",     title: "OpenDevin - 오픈소스 소프트웨어 에이전트", desc: "Devin의 오픈소스 구현 프로젝트. 코드 생성, 디버깅, 배포까지 자율 실행.",        votes: 441, author: "OpenDevin팀", time: "어제",    hot: true  },
-  { id: 6,  cat: "튜토리얼",    catSlug: "tutorials",  title: "RAG 시스템 직접 구축하기 - 완전편", desc: "벡터 DB 선택부터 청킹 전략, 리트리벌 최적화까지. 프로덕션 활용 사례 포함.",                 votes: 287, author: "MLops한국",  time: "2일 전",  hot: false },
-  { id: 7,  cat: "오픈소스",    catSlug: "opensource", title: "Open Interpreter - 로컬 코드 실행",desc: "자연어로 컴퓨터와 대화하는 오픈소스 프로젝트. 파일 관리, 웹 브라우징, 데이터 분석 가능",    votes: 376, author: "Killian",     time: "2일 전",  hot: false },
-  { id: 8,  cat: "뉴스",        catSlug: "news",       title: "OpenAI, o3 모델 정식 출시",          desc: "추론 능력이 대폭 향상된 o3가 정식 출시되었다. 기존 o1 대비 수학, 코딩, 과학 분야에서 대폭 향상.", votes: 521, author: "AI News",     time: "3일 전",  hot: true  },
-  { id: 9,  cat: "자동화",      catSlug: "automation", title: "Make.com AI 자동화 템플릿 100선",    desc: "Make.com에서 바로 사용 가능한 AI 자동화 시나리오 100개 모음. 이메일, SNS, 데이터 처리.",     votes: 189, author: "메이크러버", time: "3일 전",  hot: false },
-  { id: 10, cat: "리서치",      catSlug: "research",   title: "멀티에이전트 시스템 최신 연구 리뷰",   desc: "2024년 발표된 멀티에이전트 시스템의 핵심 논문 20선 요약. 실제 응용 관점으로 분석.",                votes: 234, author: "AI리서처",   time: "4일 전",  hot: false },
+  // ── Claude Code Design Skills (4개 + impeccable 서브커맨드 12개) ──
+  { id: 1,  cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable — UI 올인원 디자인 스킬", desc: "프론트엔드 UI 전반 설계·개선·다듬기. 레이아웃, 컬러, 타이포, 모션, UX 카피, 컴포넌트, 접근성까지. craft·shape·audit·polish·bolder·animate·colorize·typeset·distill·overdrive·live 12개 서브커맨드 제공.", votes: 394, author: "Claude Code", time: "1시간 전", hot: true  },
+  { id: 14, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable craft — UX/UI 기능 end-to-end 구현", desc: "UX/UI 계획 후 기능을 처음부터 끝까지 구현. 사용자 흐름 설계, 컴포넌트 아키텍처, 인터랙션 패턴까지 한 번에 처리.", votes: 287, author: "Claude Code", time: "1시간 전", hot: false },
+  { id: 15, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable shape — 코드 작성 전 UX/UI 설계", desc: "실제 코드를 쓰기 전 UX/UI 방향을 먼저 설계. 와이어프레임 수준의 구조 계획, 컴포넌트 경계 정의, 데이터 흐름 설계.", votes: 213, author: "Claude Code", time: "1시간 전", hot: false },
+  { id: 16, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable audit — 접근성·성능·반응형 기술 점검", desc: "WCAG 접근성, Core Web Vitals 성능, 반응형 레이아웃 종합 점검. 실제 사용자 시나리오 기반 기술 감사 리포트 생성.", votes: 241, author: "Claude Code", time: "2시간 전", hot: false },
+  { id: 17, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable polish — 출시 전 최종 품질 패스", desc: "출시 전 최종 품질 점검. 픽셀 단위 정렬, 간격 일관성, 컬러 대비, 폰트 렌더링, 애니메이션 타이밍까지 세밀하게 다듬는다.", votes: 341, author: "Claude Code", time: "2시간 전", hot: true  },
+  { id: 18, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable bolder — 밋밋한 디자인 강화 스킬", desc: "안전하거나 밋밋한 디자인을 과감하게 강화. 타이포 스케일 확대, 여백 재설계, 강조 요소 부각으로 기억에 남는 UI로 변환.", votes: 198, author: "Claude Code", time: "3시간 전", hot: false },
+  { id: 19, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable animate — 목적 있는 애니메이션 추가", desc: "의미 없는 장식을 지양하고 UX를 향상시키는 모션 추가. 진입·퇴장·상태 전환 애니메이션을 목적에 맞게 구현.", votes: 263, author: "Claude Code", time: "3시간 전", hot: false },
+  { id: 20, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable colorize — 단색 UI에 전략적 컬러 추가", desc: "모노크롬 또는 단조로운 UI에 목적 있는 컬러를 추가. 브랜드 아이덴티티, 계층 구조, 감정적 반응을 고려한 컬러 시스템 구축.", votes: 219, author: "Claude Code", time: "4시간 전", hot: false },
+  { id: 21, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable typeset — 타이포그래피 계층 개선", desc: "텍스트 계층 구조 개선. 한국어 Pretendard 기반 폰트 스케일, 자간, 행간, 강조 처리를 정밀하게 조정.", votes: 312, author: "Claude Code", time: "4시간 전", hot: false },
+  { id: 22, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable distill — 본질만 남기고 복잡도 제거", desc: "복잡도를 제거하는 디자인 다이어트. 불필요한 UI 요소, 중복 컴포넌트, 과도한 인터랙션을 식별하고 제거.", votes: 174, author: "Claude Code", time: "5시간 전", hot: false },
+  { id: 23, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable harden — UI 견고성·방어 설계 강화", desc: "엣지 케이스, 빈 상태, 에러 상태, 로딩 상태 등 UI 방어 설계 강화. 실제 사용 시나리오에서 깨지지 않는 견고한 인터페이스 구현.", votes: 189, author: "Claude Code", time: "5시간 전", hot: false },
+  { id: 24, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable overdrive — 관습적 한계 돌파 디자인", desc: "일반적인 UI 관습을 넘어서는 실험적 디자인 적용. 대담한 레이아웃, 비전통적 타이포, 강렬한 비주얼 계층으로 차별화된 UI 구현.", votes: 156, author: "Claude Code", time: "6시간 전", hot: false },
+  { id: 25, cat: "AI 에이전트", catSlug: "agents",     title: "/impeccable live — 브라우저 시각적 변형 반복 모드", desc: "브라우저에서 실시간으로 시각적 변형을 반복 적용하는 인터랙티브 모드. 컬러, 간격, 타이포를 즉시 확인하며 최적 디자인을 탐색.", votes: 201, author: "Claude Code", time: "6시간 전", hot: false },
+  { id: 2,  cat: "AI 에이전트", catSlug: "agents",     title: "/design-taste-frontend — 템플릿 탈출 랜딩페이지 스킬", desc: "템플릿처럼 보이지 않는 랜딩페이지·포트폴리오·리디자인 전문 스킬. 디자인 방향 추론 후 코드까지 직접 작성. 진부한 섹션 구조를 깨는 접근법.", votes: 271, author: "Claude Code", time: "2시간 전", hot: false },
+  { id: 3,  cat: "AI 에이전트", catSlug: "agents",     title: "/emil-design-eng — Emil Kowalski 철학 기반 UI 폴리시", desc: "소프트웨어를 좋게 느끼게 만드는 보이지 않는 디테일에 집중. 마이크로 인터랙션, 애니메이션 판단 기준, 물리적 피드백 감각을 코드로 구현하는 Claude Code 스킬.", votes: 318, author: "Claude Code", time: "3시간 전", hot: true  },
+  { id: 4,  cat: "AI 에이전트", catSlug: "agents",     title: "/redesign-existing-projects — 기존 사이트 프리미엄 업그레이드", desc: "기존 사이트·앱을 프리미엄 퀄리티로 업그레이드. 먼저 감사 후 AI 슬롭 패턴 제거, 고급 디자인 기준 적용. 완성도 있는 리디자인 결과물 제공.", votes: 247, author: "Claude Code", time: "4시간 전", hot: false },
+
+  // ── Claude Code 코드 품질 Skills ──
+  { id: 5,  cat: "워크플로우",  catSlug: "workflows",  title: "/code-review — diff 버그·정리 리뷰 스킬", desc: "현재 diff 버그·정리 리뷰. 강도 선택: low·medium·high·max·ultra. ultra는 멀티에이전트 클라우드 리뷰로 대규모 PR에 효과적.", votes: 412, author: "Claude Code", time: "5시간 전", hot: true  },
+  { id: 6,  cat: "워크플로우",  catSlug: "workflows",  title: "/simplify — 코드 재사용·단순화·효율 개선 스킬", desc: "변경된 코드의 재사용·단순화·효율 개선 자동화. 중복 제거, 추상화 식별, 불필요한 복잡도 정리를 한 번에.", votes: 198, author: "Claude Code", time: "6시간 전", hot: false },
+  { id: 7,  cat: "워크플로우",  catSlug: "workflows",  title: "/security-review — 브랜치 변경사항 보안 점검", desc: "현재 브랜치 변경사항 보안 점검. OWASP Top 10, SQL 인젝션, XSS, 시크릿 노출 등 자동 탐지. 배포 전 필수 체크포인트.", votes: 288, author: "Claude Code", time: "7시간 전", hot: false },
+
+  // ── Claude Code 실행·검증 Skills ──
+  { id: 8,  cat: "워크플로우",  catSlug: "workflows",  title: "/verify — 변경사항 실제 동작 확인 스킬", desc: "앱을 직접 실행해서 변경사항이 실제로 동작하는지 확인. 타입 체크와 테스트만으로는 알 수 없는 런타임 동작을 검증.", votes: 231, author: "Claude Code", time: "8시간 전", hot: false },
+  { id: 9,  cat: "워크플로우",  catSlug: "workflows",  title: "/run — 프로젝트 실행·라이브 변경 확인 스킬", desc: "프로젝트 앱 실행 후 라이브로 변경사항 확인. 개발 서버 시작부터 브라우저 검증까지 에이전트가 자동 처리.", votes: 187, author: "Claude Code", time: "9시간 전", hot: false },
+
+  // ── Claude Code 자동화 Skills ──
+  { id: 10, cat: "자동화",      catSlug: "automation", title: "/loop — 슬래시 커맨드 주기적 반복 실행 스킬", desc: "프롬프트·슬래시 커맨드를 반복 실행. `/loop 5m /verify` 형태로 주기 설정. 지속적 모니터링과 자동화 루프 구성에 유용.", votes: 183, author: "Claude Code", time: "10시간 전", hot: false },
+  { id: 11, cat: "자동화",      catSlug: "automation", title: "/schedule — 크론 기반 원격 에이전트 예약 실행", desc: "크론 스케줄로 원격 에이전트 예약 실행. 정기 보고서 생성, CI 실패 알림, 주기적 코드 감사 등 자동화 파이프라인 구축.", votes: 156, author: "Claude Code", time: "11시간 전", hot: false },
+
+  // ── Claude Code 프로젝트 셋업·레퍼런스 Skills ──
+  { id: 12, cat: "튜토리얼",    catSlug: "tutorials",  title: "/init — CLAUDE.md 코드베이스 문서 초기화 스킬", desc: "코드베이스 문서가 담긴 CLAUDE.md를 자동으로 초기화. 프로젝트 구조, 아키텍처, 컨벤션을 분석해 에이전트 가이드 문서 생성.", votes: 264, author: "Claude Code", time: "12시간 전", hot: false },
+  { id: 13, cat: "튜토리얼",    catSlug: "tutorials",  title: "/claude-api — Claude API·Anthropic SDK 레퍼런스", desc: "Claude API · Anthropic SDK 레퍼런스 즉시 조회. 모델 ID, 가격, 스트리밍, 툴 유즈 사용법까지 Claude Code 내에서 바로 확인 가능.", votes: 209, author: "Claude Code", time: "어제", hot: false },
 ];
 
 export const COLLECTIONS: CollectionEntry[] = [
