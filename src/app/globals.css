@@ -14,20 +14,20 @@
   --stroke:      oklch(0.882 0.009 285);
 
   /* ── Brand (Violet primary) ── */
-  --primary:       oklch(0.44 0.26 290);
-  --primary-hover: oklch(0.38 0.26 290);
-  --primary-soft:  oklch(0.44 0.26 290 / 0.09);
-  --primary-glow:  oklch(0.44 0.26 290 / 0.04);
+  --primary:       oklch(0.46 0.20 278);
+  --primary-hover: oklch(0.40 0.20 278);
+  --primary-soft:  oklch(0.46 0.20 278 / 0.09);
+  --primary-glow:  oklch(0.46 0.20 278 / 0.04);
 
   /* ── Accent (Teal) ── */
-  --accent:       oklch(0.68 0.13 192);
-  --accent-hover: oklch(0.62 0.13 192);
-  --accent-soft:  oklch(0.68 0.13 192 / 0.12);
+  --accent:       oklch(0.71 0.12 188);
+  --accent-hover: oklch(0.65 0.12 188);
+  --accent-soft:  oklch(0.71 0.12 188 / 0.12);
 
   /* ── Text (Violet-ink) ── */
-  --ink:    oklch(0.13 0.008 285);
-  --muted:  oklch(0.42 0.007 285);
-  --subtle: oklch(0.60 0.005 285);
+  --ink:    oklch(0.13 0.008 278);
+  --muted:  oklch(0.42 0.007 278);
+  --subtle: oklch(0.60 0.005 278);
 
   /* ── Feedback ── */
   --success: oklch(0.50 0.18 145);
@@ -108,7 +108,7 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
-  padding-inline: clamp(2rem, 8vw, 4rem);
+  padding-inline: clamp(1.25rem, 5vw, 4rem);
 }
 
 .page-header {
