@@ -113,7 +113,7 @@ export default async function ItemDetailPage({ params }: PageProps) {
             목록으로 돌아가기
           </Link>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "1rem" }}>
-            <Link href={`/categories/${item.catSlug}`} className="badge badge-soft">
+            <Link href={`/categories/${item.catSlug}`} className={`badge badge-${item.catSlug}`}>
               <Tag size={12} weight="duotone" />
               {item.cat}
             </Link>

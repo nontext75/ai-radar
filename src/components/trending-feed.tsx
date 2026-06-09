@@ -38,7 +38,7 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
             }}
           >
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "0.5rem" }}>
-              <span className="badge badge-primary" style={{ fontSize: "0.625rem" }}>
+              <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.625rem" }}>
                 {item.cat}
               </span>
               {item.hot && (

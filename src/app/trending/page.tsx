@@ -61,7 +61,7 @@ export default async function TrendingPage() {
                     </div>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "0.375rem", flexWrap: "wrap" }}>
-                        <span className="badge badge-primary" style={{ fontSize: "0.625rem" }} onClick={e => e.stopPropagation()}><Link href={`/categories/${item.catSlug}`} style={{ color: "inherit", textDecoration: "none" }}>{item.cat}</Link></span>
+                        <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.625rem" }} onClick={e => e.stopPropagation()}><Link href={`/categories/${item.catSlug}`} style={{ color: "inherit", textDecoration: "none" }}>{item.cat}</Link></span>
                         {item.hot && <span className="badge badge-soft" style={{ fontSize: "0.625rem" }}>인기</span>}
                       </div>
                       <h2 className="feed-item-title">{item.title}</h2>

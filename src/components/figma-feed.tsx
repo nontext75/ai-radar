@@ -45,7 +45,7 @@ export default function FigmaFeed({ items }: { items: FeedItem[] }) {
         >
           <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.75rem", flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span className="badge badge-soft" style={{ fontSize: "0.625rem", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+              <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.625rem", display: "inline-flex", alignItems: "center", gap: "5px" }}>
                 <FigmaIcon />
                 {item.cat}
               </span>
