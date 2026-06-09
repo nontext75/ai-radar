@@ -1,0 +1,26 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "google/gemini-2.5-flash",
+  "provider": {
+    "openrouter": {
+      "options": {
+        "apiKey": "${OPENROUTER_API_KEY}"
+      }
+    },
+    "google": {
+      "options": {
+        "apiKey": "${GOOGLE_API_KEY}"
+      }
+    }
+  },
+  "command": {
+    "model:gemma4": {
+      "description": "Gemma 4 31B (free) - OpenRouter",
+      "template": "Switch model to openrouter/google/gemma-4-31b-it:free"
+    },
+    "model:gemini-flash": {
+      "description": "Gemini 2.5 Flash - Google AI (현재)",
+      "template": "echo Already using google/gemini-2.5-flash"
+    }
+  }
+}
