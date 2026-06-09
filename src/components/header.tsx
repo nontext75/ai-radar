@@ -19,7 +19,8 @@ const AUTH_NAV = [
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
   const path = usePathname();
   const { data: session } = useSession();
 
@@ -29,8 +30,27 @@ export default function Header() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
+  useEffect(() => {
+    setNavOpen(false);
+    setProfileOpen(false);
+  }, [path]);
+
+  useEffect(() => {
+    if (navOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [navOpen]);
+
   const isActive = (href: string) =>
     href === "/" ? path === "/" : path.startsWith(href);
+
+  const navLinks = [
+    ...NAV,
+    ...(session ? AUTH_NAV : []),
+  ];
 
   return (
     <header style={{
@@ -62,17 +82,9 @@ export default function Header() {
             </span>
           </Link>
 
-          <nav style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1 }}>
-            {NAV.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`nav-link${isActive(href) ? " active" : ""}`}
-              >
-                {label}
-              </Link>
-            ))}
-            {session && AUTH_NAV.map(({ href, label }) => (
+          {/* ── Desktop Nav ── */}
+          <nav className="header-nav" style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1 }}>
+            {navLinks.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
@@ -83,7 +95,8 @@ export default function Header() {
             ))}
           </nav>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "0.375rem", flexShrink: 0 }}>
+          {/* ── Desktop Actions ── */}
+          <div className="header-desktop-actions" style={{ display: "flex", alignItems: "center", gap: "0.375rem", flexShrink: 0 }}>
             <Link href="/search" aria-label="검색" className="icon-btn">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.6" />
@@ -94,7 +107,7 @@ export default function Header() {
             {session ? (
               <div style={{ position: "relative" }}>
                 <button
-                  onClick={() => setMenuOpen((v) => !v)}
+                  onClick={() => setProfileOpen((v) => !v)}
                   aria-label="프로필 메뉴"
                   style={{
                     width: "32px", height: "32px", borderRadius: "50%",
@@ -114,11 +127,11 @@ export default function Header() {
                   )}
                 </button>
 
-                {menuOpen && (
+                {profileOpen && (
                   <>
                     <div
                       style={{ position: "fixed", inset: 0, zIndex: 99 }}
-                      onClick={() => setMenuOpen(false)}
+                      onClick={() => setProfileOpen(false)}
                     />
                     <div style={{
                       position: "absolute", right: 0, top: "calc(100% + 8px)",
@@ -136,21 +149,21 @@ export default function Header() {
                       </div>
                       <Link
                         href="/profile"
-                        onClick={() => setMenuOpen(false)}
+                        onClick={() => setProfileOpen(false)}
                         style={{ display: "block", padding: "0.625rem 1rem", fontSize: "0.875rem", color: "var(--ink)" }}
                       >
                         내 프로필
                       </Link>
                       <Link
                         href="/submit"
-                        onClick={() => setMenuOpen(false)}
+                        onClick={() => setProfileOpen(false)}
                         style={{ display: "block", padding: "0.625rem 1rem", fontSize: "0.875rem", color: "var(--ink)" }}
                       >
                         리소스 제출
                       </Link>
                       <div style={{ borderTop: "1px solid var(--border)" }}>
                         <button
-                          onClick={() => { setMenuOpen(false); signOut({ callbackUrl: "/" }); }}
+                          onClick={() => { setProfileOpen(false); signOut({ callbackUrl: "/" }); }}
                           style={{
                             width: "100%", textAlign: "left", padding: "0.625rem 1rem",
                             fontSize: "0.875rem", color: "var(--danger, #e53e3e)", background: "none",
@@ -180,8 +193,102 @@ export default function Header() {
             )}
           </div>
 
+          {/* ── Mobile Toggle ── */}
+          <div className="header-mobile-toggle" style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0, marginLeft: "auto" }}>
+            <Link href="/search" aria-label="검색" className="icon-btn">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.6" />
+                <path d="M11 11l2.5 2.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              </svg>
+            </Link>
+            <button
+              onClick={() => setNavOpen((v) => !v)}
+              aria-label="메뉴 열기"
+              className="icon-btn"
+              style={{ position: "relative", zIndex: 210 }}
+            >
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                {navOpen ? (
+                  <>
+                    <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  </>
+                ) : (
+                  <>
+                    <path d="M2.5 4.5h13M2.5 9h13M2.5 13.5h13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  </>
+                )}
+              </svg>
+            </button>
+          </div>
+
         </div>
       </div>
+
+      {/* ── Mobile Drawer ── */}
+      {navOpen && (
+        <div className="header-mobile-drawer" style={{
+          position: "fixed",
+          inset: 0,
+          top: "56px",
+          zIndex: 190,
+          background: "oklch(1 0 0 / 0.98)",
+          backdropFilter: "blur(16px)",
+          display: "flex",
+          flexDirection: "column",
+          overflowY: "auto",
+          animation: "fade-in 0.2s var(--ease-out)",
+        }}>
+          <nav style={{ display: "flex", flexDirection: "column", padding: "1rem clamp(2rem, 8vw, 4rem)", gap: "2px" }}>
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`nav-link${isActive(href) ? " active" : ""}`}
+                style={{
+                  fontSize: "1rem",
+                  padding: "0.75rem 0.75rem",
+                  borderRadius: "var(--r-md)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+                onClick={() => setNavOpen(false)}
+              >
+                {label}
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ color: "var(--subtle)" }}>
+                  <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            ))}
+          </nav>
+
+          <div style={{ padding: "0 clamp(2rem, 8vw, 4rem) 2rem" }}>
+            {session ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <Link href="/submit" className="btn btn-primary" style={{ justifyContent: "center", width: "100%", height: "44px" }} onClick={() => setNavOpen(false)}>
+                  + 제출하기
+                </Link>
+                <button
+                  onClick={() => { setNavOpen(false); signOut({ callbackUrl: "/" }); }}
+                  className="btn btn-ghost"
+                  style={{ justifyContent: "center", width: "100%", height: "44px" }}
+                >
+                  로그아웃
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <Link href="/auth/signin" className="btn btn-ghost" style={{ justifyContent: "center", width: "100%", height: "44px" }} onClick={() => setNavOpen(false)}>
+                  로그인
+                </Link>
+                <Link href="/auth/signup" className="btn btn-primary" style={{ justifyContent: "center", width: "100%", height: "44px" }} onClick={() => setNavOpen(false)}>
+                  회원가입
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }

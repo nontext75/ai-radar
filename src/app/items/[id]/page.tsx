@@ -155,8 +155,8 @@ export default async function ItemDetailPage({ params }: PageProps) {
       <div className="page-body">
         <div className="page-wrap page-body-inner">
           <div className="grid-sidebar">
-            <main>
-              <article style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+              <main>
+                <article style={{ display: "flex", flexDirection: "column", gap: "2rem", maxWidth: "760px" }}>
                 <section>
                   <h2 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: "1rem" }}>리소스 소개</h2>
                   <div style={{ fontSize: "1.0625rem", lineHeight: 1.8, color: "var(--ink)", whiteSpace: "pre-wrap" }}>

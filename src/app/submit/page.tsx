@@ -49,7 +49,7 @@ export default function SubmitPage() {
 
       <div className="page-body">
         <div className="page-wrap page-body-inner">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: "3rem", alignItems: "start" }}>
+          <div className="grid-sidebar-submit">
 
             <form
               onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}

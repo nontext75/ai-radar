@@ -86,7 +86,7 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
 
       <div className="page-body">
         <div className="page-wrap page-body-inner">
-          <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: "2rem", alignItems: "start" }}>
+          <div className="grid-sidebar-alt">
 
             <aside>
               <div className="sidebar-card">

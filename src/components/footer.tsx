@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer style={{ borderTop: "1px solid var(--border)", background: "var(--bg)" }}>
       <div className="page-wrap" style={{ padding: "3rem clamp(1.25rem, 5vw, 3.5rem)" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: "4rem", alignItems: "start" }}>
+        <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: "4rem", alignItems: "start" }}>
 
           {/* 브랜드 */}
           <div>
@@ -23,7 +23,7 @@ export default function Footer() {
           </div>
 
           {/* 링크 그룹 */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, auto)", gap: "3rem", justifyContent: "start" }}>
+          <div className="footer-links" style={{ display: "grid", gridTemplateColumns: "repeat(3, auto)", gap: "3rem", justifyContent: "start" }}>
             {[
               { title: "탐색", links: [{ href: "/trending", label: "트렌딩" }, { href: "/explore", label: "전체 탐색" }, { href: "/categories", label: "카테고리" }, { href: "/collections", label: "컬렉션" }] },
               { title: "커뮤니티", links: [{ href: "/submit", label: "리소스 제출" }, { href: "/profile", label: "내 프로필" }] },
