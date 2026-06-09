@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: "4rem", alignItems: "start" }}>
 
           {/* 브랜드 */}
-          <div>
+          <div className="footer-brand">
             <Link href="/" style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "0.875rem" }}>
               <div style={{ width: "24px", height: "24px", background: "var(--primary)", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -29,11 +29,11 @@ export default function Footer() {
               { title: "커뮤니티", links: [{ href: "/submit", label: "리소스 제출" }, { href: "/profile", label: "내 프로필" }] },
               { title: "서비스", links: [{ href: "/about", label: "소개" }, { href: "/terms", label: "이용약관" }, { href: "/privacy", label: "개인정보처리방침" }] },
             ].map((group) => (
-              <div key={group.title}>
-                <p style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--subtle)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.875rem" }}>
+              <div key={group.title} className="footer-link-group">
+                <p className="footer-link-group-title" style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--subtle)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.875rem" }}>
                   {group.title}
                 </p>
-                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                <ul className="footer-link-group-items" style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                   {group.links.map(({ href, label }) => (
                     <li key={href}><Link href={href} className="footer-link">{label}</Link></li>
                   ))}
@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div style={{ borderTop: "1px solid var(--border)", marginTop: "2.5rem", paddingTop: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
+        <div className="footer-copyright" style={{ borderTop: "1px solid var(--border)", marginTop: "2.5rem", paddingTop: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
           <p style={{ fontSize: "0.75rem", color: "var(--subtle)", margin: 0 }}>© {new Date().getFullYear()} AI 레이더. All rights reserved.</p>
           <p style={{ fontSize: "0.75rem", color: "var(--subtle)", margin: 0 }}>AI 커뮤니티를 위해 만들었습니다.</p>
         </div>
