@@ -53,15 +53,15 @@ export default async function TrendingPage() {
               <div className="card card-elevated" style={{ overflow: "hidden" }}>
                 {items.map((item, idx) => (
                   <Link key={item.id} href={`/items/${item.id}`} className="feed-row anim-fade-up" style={{ display: "flex", gap: "1rem", padding: "1.25rem", textDecoration: "none", color: "inherit", borderBottom: idx < items.length - 1 ? "1px solid var(--border)" : "none", animationDelay: `${idx * 0.04}s` }}>
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "2px" }} onClick={e => e.stopPropagation()}>
-                      <button className="upvote-btn" aria-label={`${item.title} 추천`} onClick={e => { e.preventDefault(); e.stopPropagation(); }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "2px" }}>
+                      <span className="upvote-btn" aria-label={`${item.title} 추천`}>
                         <ChevronUp />
                         {item.votes}
-                      </button>
+                      </span>
                     </div>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "0.375rem", flexWrap: "wrap" }}>
-                        <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.625rem" }} onClick={e => e.stopPropagation()}><Link href={`/categories/${item.catSlug}`} style={{ color: "inherit", textDecoration: "none" }}>{item.cat}</Link></span>
+                        <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.625rem" }}><Link href={`/categories/${item.catSlug}`} style={{ color: "inherit", textDecoration: "none" }}>{item.cat}</Link></span>
                         {item.hot && <span className="badge badge-soft" style={{ fontSize: "0.625rem" }}>인기</span>}
                       </div>
                       <h2 className="feed-item-title">{item.title}</h2>
