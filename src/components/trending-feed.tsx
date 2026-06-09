@@ -49,7 +49,7 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
               )}
             </div>
 
-            <h3 className="feed-item-title" style={{ marginBottom: 0, flex: 1, fontSize: "1.25rem" }}>
+            <h3 className="feed-item-title" style={{ marginBottom: 0, flex: 1 }}>
               {item.title}
             </h3>
             <p

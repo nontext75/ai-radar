@@ -56,7 +56,7 @@ export default function FigmaFeed({ items }: { items: FeedItem[] }) {
               )}
             </div>
 
-            <h3 className="feed-item-title" style={{ marginBottom: 0, flex: 1, fontSize: "1.125rem", fontWeight: 700 }}>
+            <h3 className="feed-item-title" style={{ marginBottom: 0, flex: 1, fontWeight: 700 }}>
               {item.title}
             </h3>
             
