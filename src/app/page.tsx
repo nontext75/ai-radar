@@ -46,7 +46,7 @@ export default async function Home() {
       <HeroSection />
 
       {/* ── 메인 피드 ── */}
-      <section className="section page-body">
+      <section className="page-body">
         <div className="page-wrap page-body-inner">
           <div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem" }}>

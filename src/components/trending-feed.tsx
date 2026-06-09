@@ -21,7 +21,7 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
 
   return (
     <>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))", gap: "1.25rem" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: "1.25rem" }}>
         {shown.map((item, idx) => (
           <Link
             key={item.id}
