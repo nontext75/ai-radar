@@ -13,16 +13,17 @@
   --border-soft: oklch(0.943 0.005 285);
   --stroke:      oklch(0.882 0.009 285);
 
-  /* ── Brand (Violet primary) ── */
-  --primary:       oklch(0.46 0.20 278);
-  --primary-hover: oklch(0.40 0.20 278);
-  --primary-soft:  oklch(0.46 0.20 278 / 0.09);
-  --primary-glow:  oklch(0.46 0.20 278 / 0.04);
+  /* ── Brand (Violet primary — Fisdom #4834D4 / #6C5CE7) ── */
+  --primary:       oklch(0.465 0.229 278);
+  --primary-hover: oklch(0.400 0.229 278);
+  --primary-soft:  oklch(0.465 0.229 278 / 0.09);
+  --primary-glow:  oklch(0.465 0.229 278 / 0.04);
+  --primary-light: oklch(0.568 0.202 283);
 
-  /* ── Accent (Teal) ── */
-  --accent:       oklch(0.71 0.12 188);
-  --accent-hover: oklch(0.65 0.12 188);
-  --accent-soft:  oklch(0.71 0.12 188 / 0.12);
+  /* ── Accent (Teal — Fisdom #2EC4B6) ── */
+  --accent:       oklch(0.742 0.121 185);
+  --accent-hover: oklch(0.660 0.121 185);
+  --accent-soft:  oklch(0.742 0.121 185 / 0.12);
 
   /* ── Text (Violet-ink) ── */
   --ink:    oklch(0.13 0.008 278);
