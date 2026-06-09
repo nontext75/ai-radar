@@ -1,28 +1,33 @@
 @import "tailwindcss";
 
 /* ============================================================
-   AI 레이더 — Design System (Cool Minimal · Slate)
+   AI 레이더 — Design System (Violet · Teal)
    ============================================================ */
 
 :root {
-  /* ── Surface (Cool tone) ── */
-  --bg:          oklch(0.997 0.002 260);
-  --surface:     oklch(0.990 0.004 260);
-  --surface-2:   oklch(0.982 0.005 260);
-  --border:      oklch(0.925 0.006 260);
-  --border-soft: oklch(0.945 0.005 260);
-  --stroke:      oklch(0.885 0.008 260);
+  /* ── Surface (Violet-tinted) ── */
+  --bg:          oklch(0.998 0.002 285);
+  --surface:     oklch(0.993 0.003 285);
+  --surface-2:   oklch(0.986 0.004 285);
+  --border:      oklch(0.922 0.007 285);
+  --border-soft: oklch(0.943 0.005 285);
+  --stroke:      oklch(0.882 0.009 285);
 
-  /* ── Brand (Slate blue) ── */
-  --primary:       oklch(0.50 0.14 255);
-  --primary-hover: oklch(0.44 0.14 255);
-  --primary-soft:  oklch(0.50 0.14 255 / 0.09);
-  --primary-glow:  oklch(0.50 0.14 255 / 0.04);
+  /* ── Brand (Violet primary) ── */
+  --primary:       oklch(0.44 0.26 290);
+  --primary-hover: oklch(0.38 0.26 290);
+  --primary-soft:  oklch(0.44 0.26 290 / 0.09);
+  --primary-glow:  oklch(0.44 0.26 290 / 0.04);
 
-  /* ── Text (Cool ink) ── */
-  --ink:    oklch(0.12 0.005 260);
-  --muted:  oklch(0.40 0.007 260);
-  --subtle: oklch(0.58 0.006 260);
+  /* ── Accent (Teal) ── */
+  --accent:       oklch(0.68 0.13 192);
+  --accent-hover: oklch(0.62 0.13 192);
+  --accent-soft:  oklch(0.68 0.13 192 / 0.12);
+
+  /* ── Text (Violet-ink) ── */
+  --ink:    oklch(0.13 0.008 285);
+  --muted:  oklch(0.42 0.007 285);
+  --subtle: oklch(0.60 0.005 285);
 
   /* ── Feedback ── */
   --success: oklch(0.50 0.18 145);
