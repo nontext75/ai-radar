@@ -1,6 +1,7 @@
 // src/app/explore/page.tsx
 import Link from "next/link";
 import { fetchItems, fetchCategories } from "@/lib/fetch-data";
+import { BookmarkButton } from "@/components/bookmark-button";
 
 function ChevronUp() {
   return (
@@ -116,11 +117,12 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
               <div className="card card-elevated" style={{ overflow: "hidden" }}>
                 {filteredItems.map((item, idx) => (
                   <div key={`${item.id}-${idx}`} className="feed-row anim-fade-up" style={{ borderBottom: idx < filteredItems.length - 1 ? "1px solid var(--border)" : "none", animationDelay: `${idx * 0.03}s` }}>
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "2px" }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px", paddingTop: "2px" }}>
                       <button className="upvote-btn" aria-label={`${item.title} 추천`}>
                         <ChevronUp />
                         {item.votes}
                       </button>
+                      <BookmarkButton contentId={item.id} size={11} />
                     </div>
                     <div>
                       <div style={{ marginBottom: "0.375rem" }}>

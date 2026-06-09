@@ -678,6 +678,67 @@ button { font-family: inherit; cursor: pointer; }
   }
 }
 
+/* ── Profile Layout ── */
+.profile-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem clamp(1.25rem, 5vw, 3.5rem);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.profile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: all 150ms;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.profile-nav-btn:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.profile-nav-btn.active {
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .profile-layout {
+    grid-template-columns: 1fr;
+  }
+  .profile-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+  .profile-nav-btn {
+    flex-shrink: 0;
+  }
+}
+
 /* ── Responsive ── */
 @media (min-width: 640px) {
   .section { padding-top: 5rem; padding-bottom: 5rem; }

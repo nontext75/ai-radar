@@ -1,18 +1,36 @@
 // src/components/item-actions.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CaretUp, ShareNetwork, Bookmark } from "@phosphor-icons/react";
+import { useSession } from "next-auth/react";
+import { useParams } from "next/navigation";
 
 interface ItemActionsProps {
   initialVotes: number;
 }
 
 export function ItemActions({ initialVotes }: ItemActionsProps) {
+  const { data: session } = useSession();
+  const params = useParams();
+  const contentId = Number(params.id);
+
   const [votes, setVotes] = useState(initialVotes);
   const [hasVoted, setHasVoted] = useState(false);
   const [hasBookmarked, setHasBookmarked] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [bookmarkLoading, setBookmarkLoading] = useState(false);
+
+  useEffect(() => {
+    if (!session?.user?.id || !contentId) return;
+    fetch("/api/bookmarks")
+      .then(r => r.json())
+      .then(res => {
+        const bookmarked = (res.data ?? []).some((b: { id: number }) => b.id === contentId);
+        setHasBookmarked(bookmarked);
+      })
+      .catch(() => {});
+  }, [session, contentId]);
 
   const handleVote = () => {
     if (hasVoted) {
@@ -32,6 +50,25 @@ export function ItemActions({ initialVotes }: ItemActionsProps) {
     } catch {
       alert("링크를 복사하는 데 실패했습니다.");
     }
+  };
+
+  const handleBookmark = async () => {
+    if (!session) {
+      window.location.href = "/auth/signin";
+      return;
+    }
+    if (bookmarkLoading) return;
+    setBookmarkLoading(true);
+    try {
+      const res = await fetch("/api/bookmarks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contentId }),
+      });
+      const data = await res.json();
+      setHasBookmarked(data.bookmarked);
+    } catch { /* ignore */ }
+    setBookmarkLoading(false);
   };
 
   return (
@@ -65,10 +102,11 @@ export function ItemActions({ initialVotes }: ItemActionsProps) {
           {copied ? "복사 완료!" : "공유하기"}
         </button>
         <button
-          onClick={() => setHasBookmarked(!hasBookmarked)}
+          onClick={handleBookmark}
           className="btn btn-secondary"
           style={{ paddingInline: "0.75rem" }}
           aria-label="북마크"
+          disabled={bookmarkLoading}
         >
           <Bookmark size={16} weight={hasBookmarked ? "fill" : "regular"} style={{ color: hasBookmarked ? "var(--primary)" : "inherit" }} />
         </button>

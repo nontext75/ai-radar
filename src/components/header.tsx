@@ -13,6 +13,10 @@ const NAV = [
   { href: "/collections", label: "컬렉션" },
 ];
 
+const AUTH_NAV = [
+  { href: "/profile", label: "내 라이브러리" },
+];
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,6 +64,15 @@ export default function Header() {
 
           <nav style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1 }}>
             {NAV.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`nav-link${isActive(href) ? " active" : ""}`}
+              >
+                {label}
+              </Link>
+            ))}
+            {session && AUTH_NAV.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}

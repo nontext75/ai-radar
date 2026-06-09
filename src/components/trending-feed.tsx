@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { FeedItem } from "@/lib/data";
+import { BookmarkButton } from "@/components/bookmark-button";
 
 function ChevronUp() {
   return (
@@ -81,10 +82,13 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                 <span aria-hidden="true">·</span>
                 <span>{item.time}</span>
               </div>
-              <button className="upvote-btn" aria-label={`${item.title} 추천`} style={{ flexDirection: "row", gap: "4px", padding: "4px 8px" }} onClick={e => { e.preventDefault(); e.stopPropagation(); }}>
-                <ChevronUp />
-                {item.votes}
-              </button>
+              <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
+                <BookmarkButton contentId={item.id} size={11} />
+                <button className="upvote-btn" aria-label={`${item.title} 추천`} style={{ flexDirection: "row", gap: "4px", padding: "4px 8px" }} onClick={e => { e.preventDefault(); e.stopPropagation(); }}>
+                  <ChevronUp />
+                  {item.votes}
+                </button>
+              </div>
             </div>
           </Link>
         ))}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { fetchCategories, fetchItems } from "@/lib/fetch-data";
 import { notFound } from "next/navigation";
+import { BookmarkButton } from "@/components/bookmark-button";
 
 const ROLE_LABELS: Record<string, string> = {
   developer: "개발자",
@@ -47,11 +48,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           <div className="card card-elevated" style={{ overflow: "hidden" }}>
             {items.length > 0 ? items.map((item, idx) => (
               <div key={item.id} className="feed-row anim-fade-up" style={{ borderBottom: idx < items.length - 1 ? "1px solid var(--border)" : "none", animationDelay: `${idx * 0.05}s` }}>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "2px" }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px", paddingTop: "2px" }}>
                   <button className="upvote-btn" aria-label={`${item.title} 추천`}>
                     <ChevronUp />
                     {item.votes}
                   </button>
+                  <BookmarkButton contentId={item.id} size={11} />
                 </div>
                 <div>
                   <h2 className="feed-item-title">
