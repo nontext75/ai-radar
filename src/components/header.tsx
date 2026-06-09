@@ -106,7 +106,7 @@ export default function Header() {
                 >
                   {session.user?.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={session.user.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <img src={session.user.image} alt="" width={32} height={32} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                   ) : (
                     <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--primary)" }}>
                       {session.user?.name?.[0]?.toUpperCase() ?? "U"}

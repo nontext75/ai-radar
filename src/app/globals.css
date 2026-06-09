@@ -6,27 +6,27 @@
 
 :root {
   /* ── Surface ── */
-  --bg:        oklch(1.000 0.000 0);
-  --surface:   oklch(1.000 0.000 0);
-  --surface-2: oklch(1.000 0.000 0);
-  --border:    oklch(0.930 0.000 0);
-  --border-soft: oklch(0.950 0.000 0);
-  --stroke:    oklch(0.890 0.000 0);
+  --bg:          oklch(0.998 0.003 55);
+  --surface:     oklch(0.993 0.004 55);
+  --surface-2:   oklch(0.986 0.005 55);
+  --border:      oklch(0.920 0.007 55);
+  --border-soft: oklch(0.944 0.005 55);
+  --stroke:      oklch(0.880 0.009 55);
 
   /* ── Brand ── */
-  --primary:       oklch(0.25 0.000 240);
-  --primary-hover: oklch(0.30 0.000 240);
-  --primary-soft:  oklch(0.25 0.000 240 / 0.06);
-  --primary-glow:  oklch(0.25 0.000 240 / 0.03);
+  --primary:       oklch(0.48 0.18 50);
+  --primary-hover: oklch(0.42 0.18 50);
+  --primary-soft:  oklch(0.48 0.18 50 / 0.09);
+  --primary-glow:  oklch(0.48 0.18 50 / 0.04);
 
   /* ── Text ── */
-  --ink:    oklch(0.18 0.000 0);
-  --muted:  oklch(0.48 0.000 0);
-  --subtle: oklch(0.68 0.000 0);
+  --ink:    oklch(0.14 0.010 55);
+  --muted:  oklch(0.44 0.008 55);
+  --subtle: oklch(0.63 0.006 55);
 
   /* ── Feedback ── */
-  --success: oklch(0.55 0.000 0);
-  --danger:  oklch(0.60 0.000 0);
+  --success: oklch(0.52 0.17 145);
+  --danger:  oklch(0.52 0.20 25);
 
   /* ── Shadow ── */
   --shadow-xs: 0 0 0 1px var(--border-soft);
@@ -291,7 +291,7 @@ button { font-family: inherit; cursor: pointer; }
   background: var(--surface-2);
 }
 .nav-link.active {
-  color: var(--ink);
+  color: var(--primary);
   font-weight: 600;
 }
 
@@ -649,19 +649,28 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .anim-fade-up {
-  animation: fade-up 0.5s var(--ease-out) both;
+  animation: fade-up 0.5s var(--ease-out) forwards;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .anim-fade-up { opacity: 0; }
 }
 
 .anim-fade-in {
-  animation: fade-in 0.4s var(--ease-out) both;
+  animation: fade-in 0.4s var(--ease-out) forwards;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .anim-fade-in { opacity: 0; }
 }
 
 .anim-scale-in {
-  animation: scale-in 0.35s var(--ease-out) both;
+  animation: scale-in 0.35s var(--ease-out) forwards;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .anim-scale-in { opacity: 0; }
 }
 
 .anim-stagger > * {
-  animation: fade-up 0.5s var(--ease-out) both;
+  animation: fade-up 0.5s var(--ease-out) forwards;
   animation-delay: calc(var(--i, 0) * 60ms);
 }
 

@@ -127,7 +127,7 @@ export default function ProfilePage() {
               }}>
                 {user.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={user.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <img src={user.image} alt="" width={60} height={60} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 ) : (
                   user.name?.[0]?.toUpperCase() ?? "U"
                 )}
