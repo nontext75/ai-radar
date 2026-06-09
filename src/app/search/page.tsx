@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { ITEMS, CATEGORIES } from "@/lib/data";
+import { fetchItems, fetchCategories } from "@/lib/fetch-data";
+
+const ROLE_LABELS: Record<string, string> = {
+  developer: "개발자",
+  pm: "기획자",
+  designer: "디자이너",
+  publisher: "퍼블리셔",
+};
 
 function ChevronUp() {
   return (
@@ -9,7 +16,9 @@ function ChevronUp() {
   );
 }
 
-export default function SearchPage() {
+export default async function SearchPage() {
+  const ITEMS = await fetchItems("latest", 5);
+  const CATEGORIES = await fetchCategories();
   return (
     <>
       <div className="page-header">
@@ -48,7 +57,7 @@ export default function SearchPage() {
               <div>
                 <p style={{ fontSize: "0.9375rem", fontWeight: 700, marginBottom: "0.875rem", color: "var(--ink)" }}>최근 추가된 리소스</p>
                 <div className="card card-elevated" style={{ overflow: "hidden" }}>
-                  {ITEMS.slice(0, 5).map((item, idx) => (
+                  {ITEMS.map((item, idx) => (
                     <div key={item.id} className="feed-row" style={{ borderBottom: idx < 4 ? "1px solid var(--border)" : "none" }}>
                       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "2px" }}>
                         <button className="upvote-btn" aria-label={`${item.title} 추천`}>
@@ -60,8 +69,23 @@ export default function SearchPage() {
                         <div style={{ marginBottom: "0.375rem" }}>
                           <span className="badge badge-primary" style={{ fontSize: "0.625rem" }}>{item.cat}</span>
                         </div>
-                        <h3 className="feed-item-title">{item.title}</h3>
+                        <h3 className="feed-item-title">
+                          <Link href={`/items/${item.id}`} style={{ display: "block" }}>
+                            {item.title}
+                          </Link>
+                        </h3>
                         <p className="feed-item-desc">{item.desc}</p>
+                        <div className="feed-item-meta" style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginTop: "0.375rem" }}>
+                          {item.targetRoles && item.targetRoles.length > 0 && (
+                            <span style={{ display: "inline-flex", gap: "4px" }}>
+                              {item.targetRoles.map((r) => (
+                                <span key={r} className="badge badge-soft" style={{ fontSize: "0.625rem", padding: "2px 6px" }}>
+                                  {ROLE_LABELS[r] ?? r}
+                                </span>
+                              ))}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ))}

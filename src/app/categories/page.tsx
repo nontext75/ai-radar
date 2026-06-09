@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { CATEGORIES } from "@/lib/data";
+import { fetchCategories } from "@/lib/fetch-data";
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
+  const CATEGORIES = await fetchCategories();
   return (
     <>
       <div className="page-header">

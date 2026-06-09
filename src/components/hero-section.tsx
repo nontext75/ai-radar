@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function HeroSection() {
+export default async function HeroSection() {
   return (
     <section
       className="anim-fade-up"
@@ -78,31 +78,6 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* 통계 */}
-        <div
-          className="anim-fade-up"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "clamp(2rem, 6vw, 4rem)",
-            marginTop: "3.5rem",
-            paddingTop: "2.5rem",
-            borderTop: "1px solid var(--border-soft)",
-            flexWrap: "wrap",
-            animationDelay: "0.3s",
-          }}
-        >
-          {[
-            { value: "6,200+", label: "등록된 리소스" },
-            { value: "13",     label: "카테고리" },
-            { value: "5,000+", label: "큐레이터" },
-          ].map(({ value, label }) => (
-            <div key={label} style={{ textAlign: "center" }}>
-              <div className="stat-value">{value}</div>
-              <div className="stat-label">{label}</div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );

@@ -96,4 +96,5 @@ INSERT INTO categories (slug, name, description, content_count) VALUES
   ('tutorials',  '튜토리얼',   'AI 사용 가이드와 학습 자료',            678),
   ('news',       '뉴스',       'AI 업계 최신 뉴스와 동향',             1820),
   ('startups',   '스타트업',   '주목할만한 AI 스타트업 소식',            203),
-  ('resources',  '리소스',     '유용한 AI 학습 및 활용 자료',            512);
+  ('resources',  '리소스',     '유용한 AI 학습 및 활용 자료',            512),
+  ('figma',      '피그마 플러그인', 'AI 기반 피그마 플러그인 및 디자인 도구', 120);

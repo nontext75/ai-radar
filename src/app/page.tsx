@@ -1,48 +1,45 @@
 // src/app/page.tsx
 import Link from "next/link";
 import {
-  ChatCircleText,
   TreeStructure,
-  Desktop,
   Robot,
-  PuzzlePiece,
-  Lightning,
-  MagnifyingGlass,
-  Brain,
-  GitBranch,
-  BookOpen,
-  Newspaper,
-  Rocket,
   BookBookmark,
+  Terminal,
+  Plugs,
+  PuzzlePiece,
+  FigmaLogo,
+  Cpu,
+  GraduationCap,
+  Brain,
+  Code,
+  Compass,
 } from "@phosphor-icons/react/dist/ssr";
 import HeroSection from "@/components/hero-section";
 import TrendingFeed from "@/components/trending-feed";
-import { ITEMS } from "@/lib/data";
+import FigmaFeed from "@/components/figma-feed";
 import { fetchItems, fetchCategories } from "@/lib/fetch-data";
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  prompts:    <ChatCircleText  size={24} weight="duotone" />,
-  workflows:  <TreeStructure   size={24} weight="duotone" />,
-  mcp:        <Desktop         size={24} weight="duotone" />,
-  agents:     <Robot           size={24} weight="duotone" />,
-  plugins:    <PuzzlePiece     size={24} weight="duotone" />,
-  automation: <Lightning       size={24} weight="duotone" />,
-  research:   <MagnifyingGlass size={24} weight="duotone" />,
-  models:     <Brain           size={24} weight="duotone" />,
-  opensource: <GitBranch       size={24} weight="duotone" />,
-  tutorials:  <BookOpen        size={24} weight="duotone" />,
-  news:       <Newspaper       size={24} weight="duotone" />,
-  startups:   <Rocket          size={24} weight="duotone" />,
-  resources:  <BookBookmark    size={24} weight="duotone" />,
+  prompts:    <Terminal size={20} />,
+  workflows:  <TreeStructure size={20} />,
+  mcp:        <Plugs size={20} />,
+  agents:     <Robot size={20} />,
+  plugins:    <PuzzlePiece size={20} />,
+  figma:      <FigmaLogo size={20} />,
+  automation: <Cpu size={20} />,
+  research:   <GraduationCap size={20} />,
+  models:     <Brain size={20} />,
+  opensource: <Code size={20} />,
+  tutorials:  <Compass size={20} />,
+  resources:  <BookBookmark size={20} />,
 };
 
 export default async function Home() {
-  const [items, cats] = await Promise.all([
+  const [items, figmaItems, cats] = await Promise.all([
     fetchItems("trending", 18),
+    fetchItems("trending", 3, "figma"),
     fetchCategories(),
   ]);
-
-  const featured = items.length > 0 ? items : ITEMS.slice(0, 18);
 
   return (
     <>
@@ -60,10 +57,34 @@ export default async function Home() {
               </Link>
             </div>
 
-            <TrendingFeed items={featured} />
+            <TrendingFeed items={items} />
           </div>
         </div>
       </section>
+
+      {/* ── 피그마 플러그인 ── */}
+      {figmaItems.length > 0 && (
+        <section className="section" style={{ borderTop: "1px solid var(--border)", background: "var(--surface-2)" }}>
+          <div className="page-wrap">
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem" }}>
+              <div>
+                <h2 className="section-title" style={{ fontSize: "1.0625rem", margin: 0, fontWeight: 800 }}>
+                  피그마 AI 플러그인
+                </h2>
+                <p style={{ fontSize: "0.8125rem", color: "var(--muted)", marginTop: "4px" }}>
+                  디자이너와 개발자를 위한 생산성 극대화 플러그인 모음
+                </p>
+              </div>
+              <Link href="/categories/figma" style={{ fontSize: "0.875rem", color: "var(--primary)", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px" }}>
+                전체 보기
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L7.5 6l-3 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </Link>
+            </div>
+
+            <FigmaFeed items={figmaItems} />
+          </div>
+        </section>
+      )}
 
       {/* ── 카테고리별 탐색 ── */}
       <section className="section" style={{ borderTop: "1px solid var(--border)" }}>
@@ -75,19 +96,25 @@ export default async function Home() {
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", gap: "0.875rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))", gap: "0.625rem" }}>
             {cats.map((cat, i) => (
               <Link
                 key={cat.slug}
                 href={`/categories/${cat.slug}`}
                 className="card card-flat anim-fade-up"
-                style={{ padding: "1.25rem", display: "block", animationDelay: `${i * 0.04}s` }}
+                style={{
+                  padding: "0.75rem 0.875rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                  animationDelay: `${i * 0.04}s`
+                }}
               >
-                <div style={{ marginBottom: "0.75rem", color: "var(--primary)" }}>
-                  {CATEGORY_ICONS[cat.slug] ?? <Desktop size={24} weight="duotone" />}
+                <div style={{ marginBottom: "0.375rem", color: "var(--ink)" }}>
+                  {CATEGORY_ICONS[cat.slug] || <BookBookmark size={20} />}
                 </div>
-                <div className="stat-value" style={{ fontSize: "0.9375rem", marginBottom: "0.25rem" }}>{cat.label}</div>
-                <div className="stat-label" style={{ fontSize: "0.75rem" }}>
+                <div className="stat-value" style={{ fontSize: "0.8125rem", marginBottom: "0.125rem", fontWeight: 600 }}>{cat.label}</div>
+                <div className="stat-label" style={{ fontSize: "0.6875rem", marginTop: "auto" }}>
                   {cat.count >= 1000 ? `${(cat.count / 1000).toFixed(1)}k` : cat.count}개
                 </div>
               </Link>

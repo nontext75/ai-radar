@@ -1,10 +1,19 @@
 import Link from "next/link";
-import { ITEMS } from "@/lib/data";
+import { fetchItems } from "@/lib/fetch-data";
+import { auth } from "@/lib/auth";
+
+const ROLE_LABELS: Record<string, string> = {
+  developer: "개발자",
+  pm: "기획자",
+  designer: "디자이너",
+  publisher: "퍼블리셔",
+};
 
 const TABS = ["제출한 리소스", "저장한 리소스", "컬렉션"];
 
-export default function ProfilePage() {
-  const myItems = ITEMS.slice(0, 3);
+export default async function ProfilePage() {
+  const session = await auth();
+  const myItems = await fetchItems("latest", 3);
 
   return (
     <>
@@ -21,9 +30,9 @@ export default function ProfilePage() {
             </div>
             <div style={{ flex: 1 }}>
               <h1 style={{ fontSize: "1.25rem", fontWeight: 800, letterSpacing: "-0.025em", marginBottom: "0.25rem" }}>
-                사용자님
+                {session?.user?.name ?? "사용자"}
               </h1>
-              <p style={{ fontSize: "0.875rem", color: "var(--muted)" }}>@username · 2024년 1월 가입</p>
+              <p style={{ fontSize: "0.875rem", color: "var(--muted)" }}>{session?.user?.email ?? ""}</p>
             </div>
             <button className="btn btn-ghost btn-sm">프로필 편집</button>
           </div>
@@ -63,8 +72,23 @@ export default function ProfilePage() {
                     <div style={{ marginBottom: "0.375rem" }}>
                       <span className="badge badge-primary" style={{ fontSize: "0.625rem" }}>{item.cat}</span>
                     </div>
-                    <h3 className="feed-item-title">{item.title}</h3>
+                    <h3 className="feed-item-title">
+                      <Link href={`/items/${item.id}`} style={{ display: "block" }}>
+                        {item.title}
+                      </Link>
+                    </h3>
                     <p className="feed-item-desc">{item.desc}</p>
+                    <div className="feed-item-meta" style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginTop: "0.375rem" }}>
+                      {item.targetRoles && item.targetRoles.length > 0 && (
+                        <span style={{ display: "inline-flex", gap: "4px" }}>
+                          {item.targetRoles.map((r) => (
+                            <span key={r} className="badge badge-soft" style={{ fontSize: "0.625rem", padding: "2px 6px" }}>
+                              {ROLE_LABELS[r] ?? r}
+                            </span>
+                          ))}
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
                     <span style={{ fontSize: "0.875rem", fontWeight: 700, color: "var(--muted)" }}>{item.votes}</span>

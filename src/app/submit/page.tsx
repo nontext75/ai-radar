@@ -1,11 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { CATEGORIES } from "@/lib/data";
+import { useState, useEffect } from "react";
+
+type Category = { slug: string; label: string; count: number; desc: string };
 
 export default function SubmitPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    fetch("/api/categories")
+      .then(r => r.json())
+      .then(res => setCategories(res.data ?? []))
+      .catch(() => {});
+  }, []);
 
   if (submitted) {
     return (
@@ -61,7 +70,7 @@ export default function SubmitPage() {
                   <label className="label" htmlFor="category">카테고리 *</label>
                   <select id="category" className="select" required>
                     <option value="">카테고리 선택</option>
-                    {CATEGORIES.map((cat) => (
+                    {categories.map((cat) => (
                       <option key={cat.slug} value={cat.slug}>{cat.label}</option>
                     ))}
                   </select>

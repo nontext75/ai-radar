@@ -3,6 +3,7 @@ import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import AuthSessionProvider from "@/components/session-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Radar — AI 생태계 디스커버리",
+  title: "AI Radar : AI 생태계 디스커버리",
   description: "최신 AI 도구, 프롬프트, 워크플로우, 모델, 리서치를 발견하고 공유하는 큐레이션 플랫폼",
 };
 
@@ -43,9 +44,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AuthSessionProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AuthSessionProvider>
       </body>
     </html>
   );

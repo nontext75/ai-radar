@@ -1,6 +1,13 @@
 import Link from "next/link";
-import { CATEGORIES, ITEMS } from "@/lib/data";
+import { fetchCategories, fetchItems } from "@/lib/fetch-data";
 import { notFound } from "next/navigation";
+
+const ROLE_LABELS: Record<string, string> = {
+  developer: "개발자",
+  pm: "기획자",
+  designer: "디자이너",
+  publisher: "퍼블리셔",
+};
 
 function ChevronUp() {
   return (
@@ -12,11 +19,11 @@ function ChevronUp() {
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const cat = CATEGORIES.find((c) => c.slug === slug);
+  const cats = await fetchCategories();
+  const cat = cats.find((c) => c.slug === slug);
   if (!cat) notFound();
 
-  const items = ITEMS.filter((i) => i.catSlug === slug);
-  const displayItems = items.length > 0 ? items : ITEMS.slice(0, 4);
+  const items = await fetchItems("trending", 50, slug);
 
   return (
     <>
@@ -38,8 +45,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           </div>
 
           <div className="card card-elevated" style={{ overflow: "hidden" }}>
-            {displayItems.map((item, idx) => (
-              <div key={item.id} className="feed-row anim-fade-up" style={{ borderBottom: idx < displayItems.length - 1 ? "1px solid var(--border)" : "none", animationDelay: `${idx * 0.05}s` }}>
+            {items.length > 0 ? items.map((item, idx) => (
+              <div key={item.id} className="feed-row anim-fade-up" style={{ borderBottom: idx < items.length - 1 ? "1px solid var(--border)" : "none", animationDelay: `${idx * 0.05}s` }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "2px" }}>
                   <button className="upvote-btn" aria-label={`${item.title} 추천`}>
                     <ChevronUp />
@@ -47,16 +54,36 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                   </button>
                 </div>
                 <div>
-                  <h2 className="feed-item-title">{item.title}</h2>
+                  <h2 className="feed-item-title">
+                    <Link href={`/items/${item.id}`} style={{ display: "block" }}>
+                      {item.title}
+                    </Link>
+                  </h2>
                   <p className="feed-item-desc">{item.desc}</p>
-                  <div className="feed-item-meta">
+                  <div className="feed-item-meta" style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
                     <span>{item.author}</span>
                     <span>·</span>
                     <span>{item.time}</span>
+                    {item.targetRoles && item.targetRoles.length > 0 && (
+                      <>
+                        <span>·</span>
+                        <span style={{ display: "inline-flex", gap: "4px" }}>
+                          {item.targetRoles.map((r) => (
+                            <span key={r} className="badge badge-soft" style={{ fontSize: "0.625rem", padding: "2px 6px" }}>
+                              {ROLE_LABELS[r] ?? r}
+                            </span>
+                          ))}
+                        </span>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
-            ))}
+            )) : (
+              <div style={{ padding: "3rem", textAlign: "center", color: "var(--muted)" }}>
+                이 카테고리에 등록된 리소스가 없습니다.
+              </div>
+            )}
           </div>
         </div>
       </div>

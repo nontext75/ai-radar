@@ -1,0 +1,241 @@
+[
+  {
+    "id": 100,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Director Variation Grid: One Still, Eight Auteur Re-Shoots 프롬프트",
+    "desc": "Create a single 3x3 grid image (square, 2048x2048, high detail).",
+    "votes": 106,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 101,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Professional Badge Photo, Ready to Use 프롬프트",
+    "desc": "Create a modern corporate ID photo of the person from the uploaded image, suitable for company badges and internal systems.",
+    "votes": 187,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 102,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Detailed Analysis of YouTube Channels, Databases, and Profiles 프롬프트",
+    "desc": "Act as a data analysis expert. You are skilled at examining YouTube channels, website databases, and user profiles to gather insights based on specific parameters provided by the user.",
+    "votes": 126,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 103,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "- Neutralization可以从这里选取一个：\"\"FAST\" 프롬프트",
+    "desc": "\"SLOW",
+    "votes": 107,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 104,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Analyse Énergétique avec DJU, Consommation et Coûts 프롬프트",
+    "desc": "Agissez en tant qu'expert en analyse énergétique. Vous êtes chargé d'analyser des données énergétiques en vous concentrant sur les Degrés-Jours Unifiés (DJU), la consommation et les coûts associés ...",
+    "votes": 159,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 105,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Act as a Patient, Non-Technical Android Studio Guide 프롬프트",
+    "desc": "Act as a patient, non-technical Android Studio guide. You are an expert in Android development, updated with the latest practices and tools as of December 2025, including Android Studio Iguana, Kot...",
+    "votes": 84,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 106,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "illustration for teenagers, side silhouette of a young person. Inside the head a question mark transforming into light t. Deep purple and blue tones, minimalist and , v. 프롬프트",
+    "desc": "Thoughtful Islamic book cover illustration for teenagers, side silhouette of a young person. Inside the head a question mark transforming into light and certainty. Arabic word \"\"اليقين\"\" integrated...",
+    "votes": 164,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 107,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Squid Game - Red Light, Green Light Challenge 프롬프트",
+    "desc": "Act as a Game Developer. You are creating an immersive experience inspired by the 'Red Light, Green Light' challenge from Squid Game. Your task is to design a game where players must carefully navi...",
+    "votes": 51,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 108,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Universal Lead & Candidate Outreach Generator (HR, SALES) 프롬프트",
+    "desc": "# **🔥 Universal Lead & Candidate Outreach Generator**",
+    "votes": 169,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 109,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Bathroom Flash Selfie (IG-candid, non-explicit) 프롬프트",
+    "desc": "{",
+    "votes": 102,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 110,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Snowy Street Cozy (winter fit, cinematic) 프롬프트",
+    "desc": "{",
+    "votes": 109,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 111,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Gym Mirror (UGC realism, no logos) 프롬프트",
+    "desc": "{",
+    "votes": 138,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 112,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Cafe Window Seat (close-up, tactile realism) 프롬프트",
+    "desc": "{",
+    "votes": 109,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 113,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Night Neon Alley (half-body, edgy) 프롬프트",
+    "desc": "{",
+    "votes": 149,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 114,
+    "cat": "프롬프트",
+    "catSlug": "prompts",
+    "title": "Cozy Couch Lamp (close-up, warm tungsten) 프롬프트",
+    "desc": "{",
+    "votes": 69,
+    "author": "AwesomePrompts",
+    "time": "방금 전",
+    "hot": false,
+    "targetRoles": [
+      "developer",
+      "pm"
+    ]
+  },
+  {
+    "id": 115,
+    "cat": "MCP 서버",
+    "catSlug": "mcp",
+    "title": "MCP: ScrapeGraphAI",
+    "desc": "**Screeny** - Privacy-first macOS MCP server that provides visual context for AI agents through window screenshots",
+    "votes": 230,
+    "author": "AwesomeMCP",
+    "time": "방금 전",
+    "hot": true,
+    "targetRoles": [
+      "developer"
+    ]
+  }
+]

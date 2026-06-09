@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { ITEMS, TAGS } from "@/lib/data";
+import { fetchItems } from "@/lib/fetch-data";
+
+const ROLE_LABELS: Record<string, string> = {
+  developer: "개발자",
+  pm: "기획자",
+  designer: "디자이너",
+  publisher: "퍼블리셔",
+};
 
 function ChevronUp() {
   return (
@@ -9,9 +16,15 @@ function ChevronUp() {
   );
 }
 
+const TAGS = [
+  "전체", "프롬프트", "워크플로우", "MCP 서버", "AI 에이전트",
+  "자동화", "모델", "오픈소스", "튜토리얼", "리서치",
+];
+
 const PERIODS = ["오늘", "이번 주", "이번 달", "전체"];
 
-export default function TrendingPage() {
+export default async function TrendingPage() {
+  const items = await fetchItems("trending", 50);
   return (
     <>
       <div className="page-header">
@@ -38,28 +51,40 @@ export default function TrendingPage() {
               </div>
 
               <div className="card card-elevated" style={{ overflow: "hidden" }}>
-                {ITEMS.map((item, idx) => (
-                  <div key={item.id} className="feed-row anim-fade-up" style={{ borderBottom: idx < ITEMS.length - 1 ? "1px solid var(--border)" : "none", animationDelay: `${idx * 0.04}s` }}>
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "2px" }}>
-                      <button className="upvote-btn" aria-label={`${item.title} 추천`}>
+                {items.map((item, idx) => (
+                  <Link key={item.id} href={`/items/${item.id}`} className="feed-row anim-fade-up" style={{ display: "flex", gap: "1rem", padding: "1.25rem", textDecoration: "none", color: "inherit", borderBottom: idx < items.length - 1 ? "1px solid var(--border)" : "none", animationDelay: `${idx * 0.04}s` }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "2px" }} onClick={e => e.stopPropagation()}>
+                      <button className="upvote-btn" aria-label={`${item.title} 추천`} onClick={e => { e.preventDefault(); e.stopPropagation(); }}>
                         <ChevronUp />
                         {item.votes}
                       </button>
                     </div>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "0.375rem", flexWrap: "wrap" }}>
-                        <Link href={`/categories/${item.catSlug}`} className="badge badge-primary" style={{ fontSize: "0.625rem" }}>{item.cat}</Link>
+                        <span className="badge badge-primary" style={{ fontSize: "0.625rem" }} onClick={e => e.stopPropagation()}><Link href={`/categories/${item.catSlug}`} style={{ color: "inherit", textDecoration: "none" }}>{item.cat}</Link></span>
                         {item.hot && <span className="badge badge-soft" style={{ fontSize: "0.625rem" }}>인기</span>}
                       </div>
                       <h2 className="feed-item-title">{item.title}</h2>
                       <p className="feed-item-desc">{item.desc}</p>
-                      <div className="feed-item-meta">
+                      <div className="feed-item-meta" style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
                         <span>{item.author}</span>
                         <span>·</span>
                         <span>{item.time}</span>
+                        {item.targetRoles && item.targetRoles.length > 0 && (
+                          <>
+                            <span>·</span>
+                            <span style={{ display: "inline-flex", gap: "4px" }}>
+                              {item.targetRoles.map((r) => (
+                                <span key={r} className="badge badge-soft" style={{ fontSize: "0.625rem", padding: "2px 6px" }}>
+                                  {ROLE_LABELS[r] ?? r}
+                                </span>
+                              ))}
+                            </span>
+                          </>
+                        )}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
 
