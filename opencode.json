@@ -1,26 +1,40 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "google/gemini-2.5-flash",
+  "small_model": "openrouter/google/gemma-4-9b-it:free",
+  "enabled_providers": ["google", "openrouter"],
   "provider": {
-    "openrouter": {
-      "options": {
-        "apiKey": "${OPENROUTER_API_KEY}"
-      }
-    },
     "google": {
       "options": {
         "apiKey": "${GOOGLE_API_KEY}"
       }
+    },
+    "openrouter": {
+      "options": {
+        "apiKey": "${OPENROUTER_API_KEY}"
+      }
     }
   },
   "command": {
+    "model:gemini-flash": {
+      "description": "Gemini 2.5 Flash (현재 메인 모델)",
+      "template": "echo Already using google/gemini-2.5-flash"
+    },
     "model:gemma4": {
       "description": "Gemma 4 31B (free) - OpenRouter",
-      "template": "Switch model to openrouter/google/gemma-4-31b-it:free"
+      "template": "Set model to openrouter/google/gemma-4-31b-it:free"
     },
-    "model:gemini-flash": {
-      "description": "Gemini 2.5 Flash - Google AI (현재)",
-      "template": "echo Already using google/gemini-2.5-flash"
+    "model:gemma4-light": {
+      "description": "Gemma 4 9B (free) - 가볍고 빠름",
+      "template": "Set model to openrouter/google/gemma-4-9b-it:free"
+    },
+    "img:bing": {
+      "description": "Bing Image Creator (무료 이미지 생성)",
+      "template": "Open https://www.bing.com/create in browser"
+    },
+    "img:sd": {
+      "description": "Stable Diffusion WebUI (로컬, 완전 무료)",
+      "template": "Run stable-diffusion-webUI locally or visit https://huggingface.co/spaces/stabilityai/stable-diffusion"
     }
   }
 }
