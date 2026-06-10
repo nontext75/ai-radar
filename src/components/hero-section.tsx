@@ -54,10 +54,10 @@ export default async function HeroSection() {
           {/* 왼쪽: 헤드라인 */}
           <div>
             <h1 style={{
-              fontSize: "clamp(3rem, 8vw, 5.5rem)",
-              fontWeight: 900,
-              letterSpacing: "-0.04em",
-              lineHeight: 0.96,
+              fontSize: "clamp(2.25rem, 5vw, 3.75rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
               color: "var(--ink)",
               marginBottom: "1.75rem",
             }}>
@@ -91,7 +91,8 @@ export default async function HeroSection() {
             display: "flex",
             flexDirection: "column",
             gap: "0",
-            border: "1.5px solid var(--ink)",
+            border: "2px solid var(--ink)",
+            borderTop: "4px solid var(--accent)",
             minWidth: "160px",
             flexShrink: 0,
           }}

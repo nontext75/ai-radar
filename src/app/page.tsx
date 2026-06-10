@@ -52,7 +52,7 @@ export default async function Home() {
             <div style={{
               display: "flex", alignItems: "center", justifyContent: "space-between",
               marginBottom: "1.5rem", paddingBottom: "1rem",
-              borderBottom: "3px solid var(--ink)",
+              borderBottom: "3px solid var(--accent)",
             }}>
               <h2 style={{
                 fontSize: "1.0625rem", fontWeight: 900, letterSpacing: "-0.02em",
@@ -80,12 +80,12 @@ export default async function Home() {
 
       {/* ── 피그마 플러그인 ── */}
       {figmaItems.length > 0 && (
-        <section className="section" style={{ borderTop: "3px solid var(--ink)", background: "var(--surface)" }}>
+        <section className="section" style={{ borderTop: "4px solid var(--accent)", background: "var(--surface)" }}>
           <div className="page-wrap">
             <div style={{
               display: "flex", alignItems: "center", justifyContent: "space-between",
               marginBottom: "1.5rem", paddingBottom: "1rem",
-              borderBottom: "3px solid var(--ink)",
+              borderBottom: "3px solid var(--accent)",
             }}>
               <h2 style={{
                 fontSize: "1.0625rem", fontWeight: 900, letterSpacing: "-0.02em",
@@ -115,7 +115,7 @@ export default async function Home() {
           <div style={{
             display: "flex", alignItems: "baseline", justifyContent: "space-between",
             marginBottom: "1.5rem", paddingBottom: "1rem",
-            borderBottom: "3px solid var(--ink)",
+            borderBottom: "3px solid var(--accent)",
           }}>
             <h2 style={{
               fontSize: "1.0625rem", fontWeight: 900, letterSpacing: "-0.02em",
@@ -160,7 +160,7 @@ export default async function Home() {
       </section>
 
       {/* ── 하단 CTA ── */}
-      <section style={{ background: "var(--ink)", borderTop: "3px solid var(--ink)" }}>
+      <section style={{ background: "var(--ink)", borderTop: "4px solid var(--accent)" }}>
         <div className="page-wrap" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
           <div style={{
             display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -168,7 +168,7 @@ export default async function Home() {
           }}>
             <div>
               <h2 style={{
-                fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 900,
+                fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)", fontWeight: 800,
                 letterSpacing: "-0.04em", color: "white", marginBottom: "0.75rem",
               }}>
                 발견한 리소스를<br />
