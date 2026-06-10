@@ -164,17 +164,12 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                     className="upvote-btn"
                     aria-label={`${item.title} 추천`}
                     style={{
-                      flexDirection: "row",
-                      gap: "4px",
-                      padding: "4px 8px",
                       ...(CARD_PATTERN[idx % CARD_PATTERN.length] === 1 ? {
-                        background: "oklch(1 0 0 / 0.08)",
-                        borderColor: "oklch(1 0 0 / 0.15)",
-                        color: "oklch(1 0 0 / 0.6)",
+                        borderColor: "oklch(1 0 0 / 0.2)",
+                        color: "oklch(1 0 0 / 0.65)",
                       } : {}),
                       ...(CARD_PATTERN[idx % CARD_PATTERN.length] === 2 ? {
-                        background: "oklch(0.85 0.10 162)",
-                        borderColor: "oklch(0.72 0.12 162)",
+                        borderColor: "oklch(0.65 0.12 162)",
                         color: "oklch(0.28 0.10 162)",
                       } : {}),
                     }}

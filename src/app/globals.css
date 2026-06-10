@@ -447,21 +447,22 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .upvote-btn {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  flex-direction: row;
   align-items: center;
-  gap: 4px;
-  background: var(--surface);
-  border: 1px solid var(--border-soft);
+  gap: 5px;
+  background: transparent;
+  border: 1.5px solid var(--border);
   border-radius: var(--r-sm);
-  padding: 8px 10px;
+  padding: 5px 10px;
   cursor: pointer;
-  color: var(--subtle);
+  color: var(--muted);
   font-size: 0.8125rem;
   font-weight: 700;
   line-height: 1;
-  transition: color var(--dur-fast), background var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast);
+  transition: color var(--dur-fast), background var(--dur-fast), border-color var(--dur-fast);
   font-family: inherit;
+  white-space: nowrap;
 }
 .upvote-btn:hover {
   color: var(--accent);
