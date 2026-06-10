@@ -79,7 +79,7 @@ export function BookmarkButton({ contentId, size = 14, className }: Props) {
         }
       }}
     >
-      <Bookmark size={size} fill={bookmarked ? "currentColor" : "none"} strokeWidth={1.75} />
+      <Bookmark size={size} fill="currentColor" stroke="none" />
     </button>
   );
 }
