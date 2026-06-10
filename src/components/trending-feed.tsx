@@ -63,9 +63,7 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
               <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.625rem" }}>
                 {item.cat}
               </span>
-              {item.hot && (
-                <span className="badge badge-hot" style={{ fontSize: "0.625rem" }}>인기</span>
-              )}
+              <BookmarkButton contentId={item.id} size={20} />
             </div>
 
             <h3 style={{ fontSize: "1rem", fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.45, color: "var(--ink)", margin: 0, flex: 1 }}>
@@ -126,7 +124,6 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                   {item.votes}
                 </button>
               </div>
-              <BookmarkButton contentId={item.id} size={24} />
             </div>
           </div>
         ))}
