@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Bookmark } from "@phosphor-icons/react";
+import { Bookmark } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 interface Props {
@@ -79,7 +79,7 @@ export function BookmarkButton({ contentId, size = 14, className }: Props) {
         }
       }}
     >
-      <Bookmark size={size} weight={bookmarked ? "fill" : "regular"} />
+      <Bookmark size={size} fill={bookmarked ? "currentColor" : "none"} strokeWidth={1.75} />
     </button>
   );
 }
