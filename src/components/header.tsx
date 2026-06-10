@@ -67,7 +67,7 @@ export default function Header() {
       transition: "background 250ms, border-color 250ms",
     }}>
       <div className="page-wrap">
-        <div style={{ display: "flex", alignItems: "center", height: "56px", gap: "1.5rem" }}>
+        <div style={{ display: "flex", alignItems: "center", height: "68px", gap: "1.5rem" }}>
 
           <Logo />
 

@@ -38,7 +38,7 @@ export default async function HeroSection() {
             color: "var(--ink)",
           }}>
             AI 생태계의 모든 것을<br />
-            <span style={{ color: "var(--primary)" }}>한 곳에서 발견하세요.</span>
+            <span style={{ color: "#3aaa92" }}>한 곳에서 발견하세요.</span>
           </h1>
 
           <p style={{

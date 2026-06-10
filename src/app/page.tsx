@@ -29,7 +29,7 @@ const SectionHeader = ({ title, href, label = "전체 보기" }: { title: string
     <h2 style={{ fontSize: "1.0625rem", fontWeight: 800, letterSpacing: "-0.025em", margin: 0, color: "var(--ink)" }}>
       {title}
     </h2>
-    <Link href={href} style={{ fontSize: "0.875rem", color: "var(--primary)", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px", flexShrink: 0 }}>
+    <Link href={href} style={{ fontSize: "0.875rem", color: "var(--accent)", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px", flexShrink: 0 }}>
       {label}
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L7.5 6l-3 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
     </Link>
@@ -93,7 +93,7 @@ export default async function Home() {
                   animationDelay: `${i * 0.04}s`,
                 }}
               >
-                <div style={{ color: "var(--primary)" }}>
+                <div style={{ color: "var(--accent)" }}>
                   {CATEGORY_ICONS[cat.slug] || <BookBookmark size={28} />}
                 </div>
                 <span style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--ink)" }}>{cat.label}</span>
