@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/logo";
 
 const LINKS = [
   {
@@ -44,44 +45,9 @@ export default function Footer() {
         >
           {/* 브랜드 */}
           <div>
-            <Link
-              href="/"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                marginBottom: "1rem",
-                textDecoration: "none",
-              }}
-            >
-              <div
-                style={{
-                  width: "28px",
-                  height: "28px",
-                  background: "oklch(1 0 0 / 0.15)",
-                  borderRadius: "7px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
-                <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                  <circle cx="6" cy="6" r="2" fill="white" />
-                  <circle cx="6" cy="6" r="4.5" stroke="white" strokeWidth="1" strokeDasharray="2 1.5" />
-                </svg>
-              </div>
-              <span
-                style={{
-                  fontSize: "0.9375rem",
-                  fontWeight: 800,
-                  color: "white",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                AI 레이더
-              </span>
-            </Link>
+            <div style={{ marginBottom: "1rem" }}>
+              <Logo variant="inverted" />
+            </div>
             <p
               style={{
                 fontSize: "0.875rem",

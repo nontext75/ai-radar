@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Logo from "@/components/logo";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
@@ -65,22 +66,7 @@ export default function Header() {
       <div className="page-wrap">
         <div style={{ display: "flex", alignItems: "center", height: "56px", gap: "1.5rem" }}>
 
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: "7px", flexShrink: 0 }}>
-            <div style={{
-              width: "26px", height: "26px",
-              background: "var(--primary)",
-              borderRadius: "7px",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                <circle cx="6.5" cy="6.5" r="2.2" fill="white" />
-                <circle cx="6.5" cy="6.5" r="5" stroke="white" strokeWidth="1" strokeDasharray="2.2 1.6" />
-              </svg>
-            </div>
-            <span style={{ fontSize: "0.9375rem", fontWeight: 800, color: "var(--ink)", letterSpacing: "-0.025em" }}>
-              AI 레이더
-            </span>
-          </Link>
+          <Logo />
 
           {/* ── Desktop Nav ── */}
           <nav className="header-nav" style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1 }}>

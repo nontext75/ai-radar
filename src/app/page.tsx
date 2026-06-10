@@ -49,14 +49,13 @@ export default async function Home() {
       <section className="page-body">
         <div className="page-wrap page-body-inner">
           <div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem" }}>
-              <h2 className="section-title" style={{ fontSize: "1.0625rem", margin: 0 }}>오늘의 트렌딩</h2>
-              <Link href="/trending" style={{ fontSize: "0.875rem", color: "var(--primary)", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px" }}>
+            <div className="section-row">
+              <h2 className="section-row-title">오늘의 트렌딩</h2>
+              <Link href="/trending" className="section-row-link">
                 전체 보기
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L7.5 6l-3 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </Link>
             </div>
-
             <TrendingFeed items={items} />
           </div>
         </div>
@@ -66,21 +65,18 @@ export default async function Home() {
       {figmaItems.length > 0 && (
         <section className="section" style={{ borderTop: "1px solid var(--border)", background: "var(--surface-2)" }}>
           <div className="page-wrap">
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem" }}>
+            <div className="section-row">
               <div>
-                <h2 className="section-title" style={{ fontSize: "1.0625rem", margin: 0, fontWeight: 800 }}>
-                  피그마 AI 플러그인
-                </h2>
+                <h2 className="section-row-title">피그마 AI 플러그인</h2>
                 <p style={{ fontSize: "0.8125rem", color: "var(--muted)", marginTop: "4px" }}>
                   디자이너와 개발자를 위한 생산성 극대화 플러그인 모음
                 </p>
               </div>
-              <Link href="/categories/figma" style={{ fontSize: "0.875rem", color: "var(--primary)", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px" }}>
+              <Link href="/categories/figma" className="section-row-link">
                 전체 보기
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L7.5 6l-3 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </Link>
             </div>
-
             <FigmaFeed items={figmaItems} />
           </div>
         </section>
@@ -102,21 +98,12 @@ export default async function Home() {
                 key={cat.slug}
                 href={`/categories/${cat.slug}`}
                 className="card card-flat anim-fade-up"
-                style={{
-                  padding: "0.75rem 0.875rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                  animationDelay: `${i * 0.04}s`
-                }}
+                style={{ padding: "0.75rem 0.875rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", height: "100%", animationDelay: `${i * 0.04}s` }}
               >
                 <div style={{ marginBottom: "0.375rem", color: "var(--ink)" }}>
                   {CATEGORY_ICONS[cat.slug] || <BookBookmark size={20} />}
                 </div>
-                <div className="stat-value" style={{ fontSize: "0.8125rem", marginBottom: "0.125rem", fontWeight: 600 }}>{cat.label}</div>
-                <div className="stat-label" style={{ fontSize: "0.6875rem", marginTop: "auto" }}>
-                  {cat.count >= 1000 ? `${(cat.count / 1000).toFixed(1)}k` : cat.count}개
-                </div>
+                <div className="stat-value" style={{ fontSize: "0.8125rem", fontWeight: 600 }}>{cat.label}</div>
               </Link>
             ))}
           </div>
@@ -124,19 +111,17 @@ export default async function Home() {
       </section>
 
       {/* ── 하단 CTA ── */}
-      <section className="section" style={{ background: "var(--surface)", borderTop: "1px solid var(--border)", textAlign: "center" }}>
+      <section className="section cta-section">
         <div className="page-wrap">
-          <div style={{ maxWidth: "480px", marginInline: "auto" }}>
-            <div style={{ width: "48px", height: "48px", borderRadius: "var(--r-lg)", background: "var(--primary-soft)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem" }}>
+          <div className="cta-inner">
+            <div className="cta-icon">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <circle cx="11" cy="11" r="10" stroke="var(--primary)" strokeWidth="1.2" strokeDasharray="3 2.5" />
                 <circle cx="11" cy="11" r="3" fill="var(--primary)" />
               </svg>
             </div>
-            <h2 style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.625rem)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "0.75rem" }}>
-              AI 커뮤니티에 함께하세요.
-            </h2>
-            <p style={{ fontSize: "0.9375rem", color: "var(--muted)", marginBottom: "1.875rem" }}>
+            <h2 className="cta-title">AI 커뮤니티에 함께하세요.</h2>
+            <p className="cta-desc">
               발견한 AI 리소스를 공유하고 커뮤니티의 트렌드를 함께 만들어가세요.
             </p>
             <Link href="/submit" className="btn btn-primary btn-lg" style={{ minWidth: "180px" }}>
