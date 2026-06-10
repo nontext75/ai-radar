@@ -150,30 +150,35 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                 alignItems: "center",
                 justifyContent: "space-between",
                 marginTop: "auto",
-                paddingTop: "0.5rem",
+                paddingTop: "0.625rem",
                 borderTop: `1px solid ${theme.divider}`,
               }}>
-                <div style={{ display: "flex", gap: "0.5rem", fontSize: "0.75rem", color: theme.meta, alignItems: "center" }}>
+                <div style={{ display: "flex", gap: "0.375rem", fontSize: "0.75rem", color: theme.meta, alignItems: "center" }}>
                   <span>{item.author}</span>
                   <span aria-hidden="true">·</span>
                   <span>{item.time}</span>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
-                  <BookmarkButton contentId={item.id} size={15} />
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <BookmarkButton contentId={item.id} size={14} />
                   <button
-                    className="upvote-btn"
                     aria-label={`${item.title} 추천`}
                     style={{
-                      ...(CARD_PATTERN[idx % CARD_PATTERN.length] === 1 ? {
-                        borderColor: "oklch(1 0 0 / 0.2)",
-                        color: "oklch(1 0 0 / 0.65)",
-                      } : {}),
-                      ...(CARD_PATTERN[idx % CARD_PATTERN.length] === 2 ? {
-                        borderColor: "oklch(0.65 0.12 162)",
-                        color: "oklch(0.28 0.10 162)",
-                      } : {}),
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: 0,
+                      color: theme.meta,
+                      fontSize: "0.8125rem",
+                      fontWeight: 700,
+                      fontFamily: "inherit",
+                      transition: "color 150ms",
                     }}
                     onClick={e => { e.preventDefault(); e.stopPropagation(); }}
+                    onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
+                    onMouseLeave={e => (e.currentTarget.style.color = theme.meta)}
                   >
                     <ChevronUp />
                     {item.votes}
