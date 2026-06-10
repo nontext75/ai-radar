@@ -72,7 +72,7 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
             {/* ── Title ── */}
             <h3 style={{
               fontSize: "0.9375rem",
-              fontWeight: 800,
+              fontWeight: 600,
               letterSpacing: "-0.025em",
               lineHeight: 1.35,
               color: "var(--ink)",
