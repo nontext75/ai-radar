@@ -153,25 +153,23 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                 paddingTop: "0.625rem",
                 borderTop: `1px solid ${theme.divider}`,
               }}>
-                <div style={{ display: "flex", gap: "0.375rem", fontSize: "0.75rem", color: theme.meta, alignItems: "center" }}>
+                <div style={{ display: "flex", gap: "0.5rem", fontSize: "0.75rem", color: theme.meta, alignItems: "center" }}>
                   <span>{item.author}</span>
                   <span aria-hidden="true">·</span>
                   <span>{item.time}</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <BookmarkButton contentId={item.id} size={14} />
+                  <span aria-hidden="true">·</span>
                   <button
                     aria-label={`${item.title} 추천`}
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "4px",
+                      gap: "3px",
                       background: "none",
                       border: "none",
                       cursor: "pointer",
                       padding: 0,
                       color: theme.meta,
-                      fontSize: "0.8125rem",
+                      fontSize: "0.75rem",
                       fontWeight: 700,
                       fontFamily: "inherit",
                       transition: "color 150ms",
@@ -184,6 +182,7 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                     {item.votes}
                   </button>
                 </div>
+                <BookmarkButton contentId={item.id} size={20} />
               </div>
             </div>
           );
