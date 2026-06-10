@@ -53,31 +53,29 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
             onClick={handleCardClick(item.id)}
             className="card card-elevated anim-fade-up"
             style={{
-              padding: "1.25rem",
+              padding: "1.25rem 1.375rem 1.125rem",
               display: "flex",
               flexDirection: "column",
-              gap: "0.625rem",
               animationDelay: `${idx * 0.04}s`,
               cursor: "pointer",
             }}
           >
             {/* ── Top row: badge + bookmark ── */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.75rem" }}>
               <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.6rem", letterSpacing: "0.04em" }}>
                 {item.cat}
               </span>
-              <BookmarkButton contentId={item.id} size={18} />
+              <BookmarkButton contentId={item.id} size={16} />
             </div>
 
             {/* ── Title ── */}
             <h3 style={{
-              fontSize: "0.9375rem",
+              fontSize: "1rem",
               fontWeight: 600,
-              letterSpacing: "-0.025em",
-              lineHeight: 1.35,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.4,
               color: "var(--ink)",
-              margin: 0,
-              textWrap: "balance",
+              margin: "0 0 0.5rem",
             }}>
               <Link
                 href={`/items/${item.id}`}
@@ -91,14 +89,13 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
             {/* ── Description ── */}
             <p style={{
               fontSize: "0.8125rem",
-              color: "oklch(0.42 0.015 250)",
-              lineHeight: 1.65,
-              margin: 0,
+              color: "oklch(0.52 0.01 250)",
+              lineHeight: 1.6,
+              margin: "0 0 auto",
               display: "-webkit-box",
               WebkitLineClamp: 2,
               WebkitBoxOrient: "vertical",
               overflow: "hidden",
-              flex: 1,
             }}>
               {stripMarkdown(item.desc.replace(/—/g, ":"))}
             </p>
@@ -108,39 +105,37 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginTop: "0.25rem",
-              paddingTop: "0.625rem",
-              borderTop: "1px solid oklch(0.95 0.003 250)",
+              paddingTop: "0.75rem",
+              marginTop: "0.875rem",
+              borderTop: "1px solid oklch(0.94 0.003 250)",
             }}>
-              {/* meta */}
               <div style={{
                 display: "flex",
-                gap: "0.375rem",
+                gap: "0.3rem",
                 fontSize: "0.6875rem",
-                color: "var(--subtle)",
+                color: "oklch(0.60 0.01 250)",
                 alignItems: "center",
                 minWidth: 0,
               }}>
-                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "80px" }}>
+                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "90px" }}>
                   {item.author}
                 </span>
-                <span aria-hidden="true" style={{ opacity: 0.4 }}>·</span>
+                <span aria-hidden="true" style={{ opacity: 0.35 }}>·</span>
                 <span style={{ whiteSpace: "nowrap" }}>{item.time}</span>
               </div>
 
-              {/* upvote */}
               <button
                 aria-label={`${item.title} 추천`}
                 onClick={e => { e.preventDefault(); e.stopPropagation(); }}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: "4px",
+                  gap: "3px",
                   padding: 0,
                   border: "none",
                   background: "none",
                   cursor: "pointer",
-                  color: "var(--subtle)",
+                  color: "oklch(0.60 0.01 250)",
                   fontSize: "0.6875rem",
                   fontWeight: 400,
                   fontFamily: "inherit",
@@ -149,7 +144,7 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                   flexShrink: 0,
                 }}
                 onMouseEnter={e => { e.currentTarget.style.color = "var(--primary)"; }}
-                onMouseLeave={e => { e.currentTarget.style.color = "var(--subtle)"; }}
+                onMouseLeave={e => { e.currentTarget.style.color = "oklch(0.60 0.01 250)"; }}
               >
                 <UpvoteIcon />
                 {item.votes}
