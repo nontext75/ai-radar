@@ -1,13 +1,32 @@
+// src/app/submit/page.tsx
 "use client";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type Category = { slug: string; label: string; count: number; desc: string };
 
 export default function SubmitPage() {
+  const { status } = useSession();
+  const router = useRouter();
+
   const [submitted, setSubmitted] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
+  const [category, setCategory] = useState("");
+  const [desc, setDesc] = useState("");
+  const [tags, setTags] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth/signin?callbackUrl=/submit");
+    }
+  }, [status, router]);
 
   useEffect(() => {
     fetch("/api/categories")
@@ -15,6 +34,59 @@ export default function SubmitPage() {
       .then(res => setCategories(res.data ?? []))
       .catch(() => {});
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title || !url || !category || !desc) {
+      setError("필수 항목을 모두 입력해 주세요.");
+      return;
+    }
+
+    setError("");
+    setSubmitting(true);
+
+    try {
+      const tagList = tags
+        .split(",")
+        .map((t) => t.trim())
+        .filter((t) => t.length > 0);
+
+      const res = await fetch("/api/contents", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          url,
+          categorySlug: category,
+          description: desc,
+          tags: tagList,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || "제출에 실패했습니다.");
+      }
+
+      setSubmitted(true);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("제출 중 에러가 발생했습니다.");
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (status === "loading" || status === "unauthenticated") {
+    return (
+      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "4rem" }}>
+        <p style={{ color: "var(--muted)" }}>로딩 중...</p>
+      </div>
+    );
+  }
 
   if (submitted) {
     return (
@@ -31,7 +103,19 @@ export default function SubmitPage() {
           </p>
           <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center" }}>
             <Link href="/trending" className="btn btn-primary">트렌딩 보기</Link>
-            <button className="btn btn-ghost" onClick={() => setSubmitted(false)}>또 제출하기</button>
+            <button
+              className="btn btn-ghost"
+              onClick={() => {
+                setSubmitted(false);
+                setTitle("");
+                setUrl("");
+                setCategory("");
+                setDesc("");
+                setTags("");
+              }}
+            >
+              또 제출하기
+            </button>
           </div>
         </div>
       </div>
@@ -52,23 +136,50 @@ export default function SubmitPage() {
           <div className="grid-sidebar-submit">
 
             <form
-              onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
+              onSubmit={handleSubmit}
               style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
             >
               <div className="card card-elevated" style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.375rem" }}>
+                {error && (
+                  <div style={{ color: "var(--danger, #e53e3e)", fontSize: "0.875rem", background: "var(--danger-soft, #fff5f5)", padding: "0.75rem 1rem", borderRadius: "var(--r-md)", border: "1px solid var(--danger-border, #feb2b2)" }}>
+                    {error}
+                  </div>
+                )}
+                
                 <div>
                   <label className="label" htmlFor="title">제목 *</label>
-                  <input id="title" className="input" placeholder="리소스 이름이나 핵심 기능을 간결하게 적어주세요" required />
+                  <input
+                    id="title"
+                    className="input"
+                    placeholder="리소스 이름이나 핵심 기능을 간결하게 적어주세요"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                  />
                 </div>
 
                 <div>
                   <label className="label" htmlFor="url">URL *</label>
-                  <input id="url" className="input" type="url" placeholder="https://..." required />
+                  <input
+                    id="url"
+                    className="input"
+                    type="url"
+                    placeholder="https://..."
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    required
+                  />
                 </div>
 
                 <div>
                   <label className="label" htmlFor="category">카테고리 *</label>
-                  <select id="category" className="select" required>
+                  <select
+                    id="category"
+                    className="select"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    required
+                  >
                     <option value="">카테고리 선택</option>
                     {categories.map((cat) => (
                       <option key={cat.slug} value={cat.slug}>{cat.label}</option>
@@ -78,18 +189,36 @@ export default function SubmitPage() {
 
                 <div>
                   <label className="label" htmlFor="desc">설명 *</label>
-                  <textarea id="desc" className="textarea" placeholder="어떤 리소스인지, 어떻게 활용할 수 있는지 간략히 설명해주세요. (100자 이상 권장)" required />
+                  <textarea
+                    id="desc"
+                    className="textarea"
+                    placeholder="어떤 리소스인지, 어떻게 활용할 수 있는지 간략히 설명해주세요. (100자 이상 권장)"
+                    value={desc}
+                    onChange={(e) => setDesc(e.target.value)}
+                    required
+                  />
                 </div>
 
                 <div>
                   <label className="label" htmlFor="tags">태그 (선택)</label>
-                  <input id="tags" className="input" placeholder="태그를 쉼표로 구분해서 입력하세요 (예: Claude, 자동화, 무료)" />
+                  <input
+                    id="tags"
+                    className="input"
+                    placeholder="태그를 쉼표로 구분해서 입력하세요 (예: Claude, 자동화, 무료)"
+                    value={tags}
+                    onChange={(e) => setTags(e.target.value)}
+                  />
                   <p style={{ fontSize: "0.8125rem", color: "var(--subtle)", marginTop: "0.375rem" }}>최대 5개</p>
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-primary btn-lg" style={{ width: "100%", justifyContent: "center" }}>
-                리소스 제출하기
+              <button
+                type="submit"
+                className="btn btn-primary btn-lg"
+                style={{ width: "100%", justifyContent: "center" }}
+                disabled={submitting}
+              >
+                {submitting ? "제출 중..." : "리소스 제출하기"}
               </button>
             </form>
 

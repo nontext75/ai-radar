@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { fetchItems, fetchCategories } from "@/lib/fetch-data";
 import { BookmarkButton } from "@/components/bookmark-button";
+import { SearchBar } from "@/components/search-bar";
+import { Suspense } from "react";
 
 function ChevronUp() {
   return (
@@ -27,20 +29,29 @@ const ROLE_LABELS: Record<string, string> = {
 };
 
 interface ExplorePageProps {
-  searchParams: Promise<{ role?: string }>;
+  searchParams: Promise<{ role?: string; q?: string }>;
 }
 
 export default async function ExplorePage({ searchParams }: ExplorePageProps) {
-  const { role } = await searchParams;
+  const { role, q } = await searchParams;
+  const decodedQ = q ? decodeURIComponent(q) : "";
   const activeRole = role ?? "all";
 
   const allItems = await fetchItems("trending", 100);
   const CATEGORIES = await fetchCategories();
 
-  // Filter items by target role
-  const filteredItems = activeRole && activeRole !== "all"
-    ? allItems.filter(item => item.targetRoles?.includes(activeRole))
-    : allItems;
+  // Filter items by target role & search term
+  let filteredItems = allItems;
+  if (activeRole && activeRole !== "all") {
+    filteredItems = filteredItems.filter(item => item.targetRoles?.includes(activeRole));
+  }
+  if (decodedQ) {
+    const query = decodedQ.toLowerCase();
+    filteredItems = filteredItems.filter(item => 
+      item.title.toLowerCase().includes(query) || 
+      item.desc.toLowerCase().includes(query)
+    );
+  }
 
   return (
     <>
@@ -54,10 +65,14 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
         <div className="page-wrap" style={{ display: "flex", gap: "0.5rem", overflowX: "auto", paddingTop: "1rem", paddingBottom: "0.5rem", scrollbarWidth: "none" }}>
           {ROLES.map((r) => {
             const isActive = activeRole === r.slug;
+            
+            // Keep q when changing roles
+            const queryPart = decodedQ ? `&q=${encodeURIComponent(decodedQ)}` : "";
+            
             return (
               <Link
                 key={r.slug}
-                href={`/explore?role=${r.slug}`}
+                href={`/explore?role=${r.slug}${queryPart}`}
                 className={`badge ${isActive ? "badge-primary" : "badge-soft"}`}
                 style={{ fontSize: "0.8125rem", padding: "6px 14px", textDecoration: "none", transition: "all 0.2s" }}
               >
@@ -73,7 +88,9 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
               <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
               <path d="M11 11l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
-            <input className="input" placeholder="리소스 검색..." style={{ paddingLeft: "2.5rem" }} />
+            <Suspense fallback={<input className="input" placeholder="로딩 중..." style={{ paddingLeft: "2.5rem" }} />}>
+              <SearchBar placeholder="리소스 검색..." style={{ paddingLeft: "2.5rem" }} />
+            </Suspense>
           </div>
         </div>
 
@@ -115,45 +132,51 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
               </div>
 
               <div className="card card-elevated" style={{ overflow: "hidden" }}>
-                {filteredItems.map((item, idx) => (
-                  <div key={`${item.id}-${idx}`} className="feed-row anim-fade-up" style={{ borderBottom: idx < filteredItems.length - 1 ? "1px solid var(--border)" : "none", animationDelay: `${idx * 0.03}s` }}>
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px", paddingTop: "2px" }}>
-                      <button className="upvote-btn" aria-label={`${item.title} 추천`}>
-                        <ChevronUp />
-                        {item.votes}
-                      </button>
-                      <BookmarkButton contentId={item.id} size={11} />
-                    </div>
-                    <div>
-                      <div style={{ marginBottom: "0.375rem" }}>
-                        <span className="badge badge-primary" style={{ fontSize: "0.625rem" }}>{item.cat}</span>
+                {filteredItems.length > 0 ? (
+                  filteredItems.map((item, idx) => (
+                    <div key={`${item.id}-${idx}`} className="feed-row anim-fade-up" style={{ borderBottom: idx < filteredItems.length - 1 ? "1px solid var(--border)" : "none", animationDelay: `${idx * 0.03}s` }}>
+                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px", paddingTop: "2px" }}>
+                        <button className="upvote-btn" aria-label={`${item.title} 추천`}>
+                          <ChevronUp />
+                          {item.votes}
+                        </button>
+                        <BookmarkButton contentId={item.id} size={11} />
                       </div>
-                      <h2 className="feed-item-title">
-                        <Link href={`/items/${item.id}`} style={{ display: "block" }}>
-                          {item.title}
-                        </Link>
-                      </h2>
-                      <p className="feed-item-desc">{item.desc}</p>
-                      <div className="feed-item-meta" style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
-                        <span>{item.author}</span>
-                        <span>·</span>
-                        <span>{item.time}</span>
-                        {item.targetRoles && item.targetRoles.length > 0 && (
-                          <>
-                            <span>·</span>
-                            <span style={{ display: "inline-flex", gap: "4px" }}>
-                              {item.targetRoles.map((r) => (
-                                <span key={r} className="badge badge-soft" style={{ fontSize: "0.625rem", padding: "2px 6px" }}>
-                                  {ROLE_LABELS[r] ?? r}
-                                </span>
-                              ))}
-                            </span>
-                          </>
-                        )}
+                      <div>
+                        <div style={{ marginBottom: "0.375rem" }}>
+                          <span className="badge badge-primary" style={{ fontSize: "0.625rem" }}>{item.cat}</span>
+                        </div>
+                        <h2 className="feed-item-title">
+                          <Link href={`/items/${item.id}`} style={{ display: "block" }}>
+                            {item.title}
+                          </Link>
+                        </h2>
+                        <p className="feed-item-desc">{item.desc}</p>
+                        <div className="feed-item-meta" style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
+                          <span>{item.author}</span>
+                          <span>·</span>
+                          <span>{item.time}</span>
+                          {item.targetRoles && item.targetRoles.length > 0 && (
+                            <>
+                              <span>·</span>
+                              <span style={{ display: "inline-flex", gap: "4px" }}>
+                                {item.targetRoles.map((r) => (
+                                  <span key={r} className="badge badge-soft" style={{ fontSize: "0.625rem", padding: "2px 6px" }}>
+                                    {ROLE_LABELS[r] ?? r}
+                                  </span>
+                                ))}
+                              </span>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
+                  ))
+                ) : (
+                  <div style={{ textAlign: "center", padding: "3rem 1rem", color: "var(--muted)" }}>
+                    해당 필터 조건에 부합하는 리소스가 없습니다.
                   </div>
-                ))}
+                )}
               </div>
 
               <div style={{ marginTop: "1rem" }}>

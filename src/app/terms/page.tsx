@@ -40,7 +40,7 @@ export default function TermsPage() {
                 <h2 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--ink)" }}>제 1 조 (목적)</h2>
               </div>
               <p style={{ fontSize: "0.9375rem", color: "var(--muted)", lineHeight: 1.75 }}>
-                본 약관은 AI 레이더(이하 "회사" 또는 "서비스")가 제공하는 모든 서비스의 이용조건 및 절차, 이용자와 회사의 권리, 의무, 책임사항을 규정함을 목적으로 합니다.
+                본 약관은 AI 레이더(이하 &ldquo;회사&rdquo; 또는 &ldquo;서비스&rdquo;)가 제공하는 모든 서비스의 이용조건 및 절차, 이용자와 회사의 권리, 의무, 책임사항을 규정함을 목적으로 합니다.
               </p>
             </section>
 
@@ -52,9 +52,9 @@ export default function TermsPage() {
                 <h2 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--ink)" }}>제 2 조 (용어의 정의)</h2>
               </div>
               <p style={{ fontSize: "0.9375rem", color: "var(--muted)", lineHeight: 1.75 }}>
-                1. "서비스"란 AI 레이더 웹사이트를 통해 제공되는 리소스 공유 및 탐색 기능을 말합니다.<br />
-                2. "회원"이란 본 약관에 동의하고 서비스를 이용하는 고객을 말합니다.<br />
-                3. "리소스"란 회원이 서비스에 게시하거나 등록한 프롬프트, 코드, 이미지, 가이드 등을 의미합니다.
+                1. &ldquo;서비스&rdquo;란 AI 레이더 웹사이트를 통해 제공되는 리소스 공유 및 탐색 기능을 말합니다.<br />
+                2. &ldquo;회원&rdquo;이란 본 약관에 동의하고 서비스를 이용하는 고객을 말합니다.<br />
+                3. &ldquo;리소스&rdquo;란 회원이 서비스에 게시하거나 등록한 프롬프트, 코드, 이미지, 가이드 등을 의미합니다.
               </p>
             </section>
 

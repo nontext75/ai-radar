@@ -11,6 +11,7 @@ interface DBContentItem {
   categories: { slug: string; name: string } | { slug: string; name: string }[] | null;
   profiles: { name: string } | { name: string }[] | null;
   install_guide: string | null;
+  target_roles: string[] | null;
 }
 
 interface DBCategoryItem {
@@ -45,7 +46,7 @@ export async function fetchItems(sort: "trending" | "latest" = "trending", limit
     query = supabase
       .from("contents")
       .select(`
-        id, title, description, url, image_url, votes, created_at, install_guide,
+        id, title, description, url, image_url, votes, created_at, install_guide, target_roles,
         categories!inner ( slug, name ),
         profiles!contents_user_id_fkey ( name )
       `)
@@ -54,7 +55,7 @@ export async function fetchItems(sort: "trending" | "latest" = "trending", limit
     query = supabase
       .from("contents")
       .select(`
-        id, title, description, url, image_url, votes, created_at, install_guide,
+        id, title, description, url, image_url, votes, created_at, install_guide, target_roles,
         categories ( slug, name ),
         profiles!contents_user_id_fkey ( name )
       `);
@@ -88,6 +89,7 @@ export async function fetchItems(sort: "trending" | "latest" = "trending", limit
       time:    timeAgo(item.created_at),
       hot:     (item.votes ?? 0) > 300,
       installGuide: item.install_guide  ?? undefined,
+      targetRoles: item.target_roles    ?? [],
     };
   });
 }
@@ -130,7 +132,7 @@ export async function fetchItemById(id: string | number): Promise<FeedItem | nul
   const { data, error } = await supabase
     .from("contents")
     .select(`
-      id, title, description, url, image_url, votes, created_at, install_guide,
+      id, title, description, url, image_url, votes, created_at, install_guide, target_roles,
       categories ( slug, name ),
       profiles!contents_user_id_fkey ( name )
     `)
@@ -160,7 +162,50 @@ export async function fetchItemById(id: string | number): Promise<FeedItem | nul
     time:    timeAgo(data.created_at),
     hot:     (data.votes ?? 0) > 300,
     installGuide: (data as unknown as DBContentItem).install_guide ?? undefined,
+    targetRoles: (data as unknown as DBContentItem).target_roles ?? [],
   };
+}
+
+export async function searchItems(q: string): Promise<FeedItem[]> {
+  const supabase = await getSupabase();
+  
+  const { data, error } = await supabase
+    .from("contents")
+    .select(`
+      id, title, description, url, image_url, votes, created_at, install_guide, target_roles,
+      categories ( slug, name ),
+      profiles!contents_user_id_fkey ( name )
+    `)
+    .or(`title.ilike.%${q}%,description.ilike.%${q}%`)
+    .order("votes", { ascending: false });
+
+  if (error || !data) return [];
+
+  return data.map((item: DBContentItem) => {
+    const categoryInfo = Array.isArray(item.categories)
+      ? item.categories[0]
+      : (item.categories as { slug: string; name: string } | null);
+
+    const profileInfo = Array.isArray(item.profiles)
+      ? item.profiles[0]
+      : (item.profiles as { name: string } | null);
+
+    return {
+      id: item.id,
+      cat:     categoryInfo?.name    ?? "",
+      catSlug: categoryInfo?.slug    ?? "",
+      title:   item.title,
+      desc:    item.description         ?? "",
+      url:     item.url                 ?? undefined,
+      imageUrl: item.image_url           ?? undefined,
+      votes:   item.votes               ?? 0,
+      author:  profileInfo?.name      ?? "anonymous",
+      time:    timeAgo(item.created_at),
+      hot:     (item.votes ?? 0) > 300,
+      installGuide: item.install_guide  ?? undefined,
+      targetRoles: item.target_roles    ?? [],
+    };
+  });
 }
 
 export async function fetchCollections(): Promise<CollectionEntry[]> {

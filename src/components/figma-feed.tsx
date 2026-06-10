@@ -1,6 +1,8 @@
+// src/components/figma-feed.tsx
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { FeedItem } from "@/lib/data";
 import { BookmarkButton } from "@/components/bookmark-button";
 
@@ -24,22 +26,43 @@ function FigmaIcon() {
   );
 }
 
+function stripMarkdown(md: string): string {
+  if (!md) return "";
+  return md
+    .replace(/#+\s+/g, "")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/-\s+/g, "")
+    .trim();
+}
+
 export default function FigmaFeed({ items }: { items: FeedItem[] }) {
+  const router = useRouter();
+
+  const handleCardClick = (id: number | string) => (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.closest("button") || target.closest("a") || target.closest(".prevent-card-click")) {
+      return;
+    }
+    router.push(`/items/${id}`);
+  };
+
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: "1.25rem" }}>
       {items.map((item, idx) => (
-        <Link
+        <div
           key={item.id}
-          href={`/items/${item.id}`}
+          onClick={handleCardClick(item.id)}
           className="card card-elevated card-figma anim-fade-up"
           style={{
             display: "flex",
             flexDirection: "column",
-            textDecoration: "none",
-            color: "inherit",
             position: "relative",
             overflow: "hidden",
             animationDelay: `${idx * 0.05}s`,
+            cursor: "pointer",
             height: "100%",
           }}
         >
@@ -57,7 +80,13 @@ export default function FigmaFeed({ items }: { items: FeedItem[] }) {
             </div>
 
             <h3 className="feed-item-title" style={{ marginBottom: 0, flex: 1, fontWeight: 700 }}>
-              {item.title}
+              <Link
+                href={`/items/${item.id}`}
+                className="prevent-card-click"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                {item.title}
+              </Link>
             </h3>
             
             <p
@@ -71,7 +100,7 @@ export default function FigmaFeed({ items }: { items: FeedItem[] }) {
                 textOverflow: "ellipsis"
               }}
             >
-              {item.desc}
+              {stripMarkdown(item.desc)}
             </p>
 
             <div
@@ -99,8 +128,9 @@ export default function FigmaFeed({ items }: { items: FeedItem[] }) {
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );
 }
+

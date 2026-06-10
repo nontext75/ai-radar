@@ -25,16 +25,19 @@ export default function Header() {
   const path = usePathname();
   const { data: session } = useSession();
 
+  const [prevPath, setPrevPath] = useState(path);
+
+  if (path !== prevPath) {
+    setPrevPath(path);
+    setNavOpen(false);
+    setProfileOpen(false);
+  }
+
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", h, { passive: true });
     return () => window.removeEventListener("scroll", h);
   }, []);
-
-  useEffect(() => {
-    setNavOpen(false);
-    setProfileOpen(false);
-  }, [path]);
 
   useEffect(() => {
     if (navOpen) {

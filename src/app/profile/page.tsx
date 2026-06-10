@@ -52,8 +52,10 @@ export default function ProfilePage() {
   const [colTitle, setColTitle] = useState("");
   const [colDesc, setColDesc] = useState("");
 
-  const load = useCallback(async () => {
-    setLoading(true);
+  const load = useCallback(async (isFirstLoad = false) => {
+    if (!isFirstLoad) {
+      setLoading(true);
+    }
     try {
       const [myRes, bmRes, colRes] = await Promise.all([
         api<{ data: Item[] }>("/api/contents/mine"),
@@ -67,7 +69,15 @@ export default function ProfilePage() {
     setLoading(false);
   }, []);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    let active = true;
+    const run = async () => {
+      if (!active) return;
+      await load(true);
+    };
+    run();
+    return () => { active = false; };
+  }, [load]);
 
   const handleCreateCollection = async () => {
     if (!colTitle.trim()) return;

@@ -15,11 +15,37 @@ function renderDesc(text: string) {
   let codeLines: string[] = [];
   let codeLang = "";
   
+  let inList = false;
+  let listItems: React.ReactNode[] = [];
+  
+  const parseInlineMarkdown = (text: string) => {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+    return parts.map((part, j) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return <strong key={j}>{part.slice(2, -2)}</strong>;
+      }
+      return <Fragment key={j}>{part}</Fragment>;
+    });
+  };
+
+  const flushList = (key: string | number) => {
+    if (inList) {
+      elements.push(
+        <ul key={`list-${key}`} style={{ paddingLeft: "1.25rem", margin: "0.5rem 0 1rem", listStyleType: "disc" }}>
+          {listItems}
+        </ul>
+      );
+      listItems = [];
+      inList = false;
+    }
+  };
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const trimmed = line.trim();
     
     if (trimmed.startsWith("```")) {
+      flushList(i);
       if (!inCodeBlock) {
         inCodeBlock = true;
         codeLang = trimmed.slice(3).trim();
@@ -38,11 +64,13 @@ function renderDesc(text: string) {
       codeLines.push(line);
     } else {
       if (!trimmed) {
+        flushList(i);
         elements.push(<div key={i} style={{ height: "0.5rem" }} />);
         continue;
       }
       
       if (trimmed.startsWith("##")) {
+        flushList(i);
         elements.push(
           <div key={i} style={{ fontWeight: 700, fontSize: "1.125rem", marginTop: i > 0 ? "1.25rem" : 0, marginBottom: "0.5rem", color: "var(--ink)" }}>
             {trimmed.slice(2).trim()}
@@ -51,20 +79,30 @@ function renderDesc(text: string) {
         continue;
       }
       
-      const hasBold = /^\*\*[^*]+\*\*/.test(trimmed);
-      const parts = trimmed.split(/(\*\*[^*]+\*\*)/g);
-      elements.push(
-        <div key={i} style={{ marginBottom: "0.25rem", fontSize: hasBold ? "0.875rem" : "0.8125rem" }}>
-          {parts.map((part, j) => {
-            if (part.startsWith("**") && part.endsWith("**")) {
-              return <strong key={j}>{part.slice(2, -2)}</strong>;
-            }
-            return <Fragment key={j}>{part}</Fragment>;
-          })}
-        </div>
-      );
+      const isListItem = trimmed.startsWith("- ") || trimmed.startsWith("* ");
+      if (isListItem) {
+        if (!inList) {
+          inList = true;
+        }
+        const itemContent = trimmed.slice(2).trim();
+        listItems.push(
+          <li key={`li-${i}-${listItems.length}`} style={{ marginBottom: "0.25rem", fontSize: "0.875rem" }}>
+            {parseInlineMarkdown(itemContent)}
+          </li>
+        );
+      } else {
+        flushList(i);
+        const hasBold = /^\*\*[^*]+\*\*/.test(trimmed);
+        elements.push(
+          <div key={i} style={{ marginBottom: "0.25rem", fontSize: hasBold ? "0.875rem" : "0.8125rem" }}>
+            {parseInlineMarkdown(trimmed)}
+          </div>
+        );
+      }
     }
   }
+  
+  flushList("eof");
   
   if (inCodeBlock && codeLines.length > 0) {
     elements.push(
