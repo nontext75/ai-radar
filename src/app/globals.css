@@ -194,27 +194,28 @@ button { font-family: inherit; cursor: pointer; }
 }
 .badge-pill { border-radius: var(--r-full); }
 
-.badge-primary { background: var(--primary); color: #fff; }
-.badge-soft    { background: var(--primary-soft); color: var(--primary); border: 1px solid var(--border); }
+.badge-primary { background: var(--accent); color: oklch(0.18 0.08 162); }
+.badge-soft    { background: #fff; color: var(--muted); border: 1px solid var(--border); }
 .badge-neutral { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
+.badge-hot     { background: var(--accent-soft); color: #3aaa92; border: 1px solid rgba(86,209,181,0.3); }
 .badge-success { background: var(--success); color: #fff; }
 .badge-ghost   { color: var(--subtle); font-weight: 500; }
 
-/* ── Category Specific Badges ── */
-.badge-prompts { background: oklch(0.96 0.04 30); color: oklch(0.45 0.12 30); border: 1px solid oklch(0.90 0.06 30); }
-.badge-workflows { background: oklch(0.96 0.04 80); color: oklch(0.45 0.12 80); border: 1px solid oklch(0.90 0.06 80); }
-.badge-mcp { background: oklch(0.96 0.04 140); color: oklch(0.45 0.12 140); border: 1px solid oklch(0.90 0.06 140); }
-.badge-agents { background: oklch(0.96 0.04 200); color: oklch(0.45 0.12 200); border: 1px solid oklch(0.90 0.06 200); }
-.badge-plugins { background: oklch(0.96 0.04 260); color: oklch(0.45 0.12 260); border: 1px solid oklch(0.90 0.06 260); }
-.badge-automation { background: oklch(0.96 0.04 320); color: oklch(0.45 0.12 320); border: 1px solid oklch(0.90 0.06 320); }
-.badge-research { background: oklch(0.96 0.04 10); color: oklch(0.45 0.12 10); border: 1px solid oklch(0.90 0.06 10); }
-.badge-models { background: oklch(0.96 0.04 60); color: oklch(0.45 0.12 60); border: 1px solid oklch(0.90 0.06 60); }
-.badge-opensource { background: oklch(0.96 0.04 120); color: oklch(0.45 0.12 120); border: 1px solid oklch(0.90 0.06 120); }
-.badge-tutorials { background: oklch(0.96 0.04 180); color: oklch(0.45 0.12 180); border: 1px solid oklch(0.90 0.06 180); }
-.badge-news { background: oklch(0.96 0.04 240); color: oklch(0.45 0.12 240); border: 1px solid oklch(0.90 0.06 240); }
-.badge-startups { background: oklch(0.96 0.04 300); color: oklch(0.45 0.12 300); border: 1px solid oklch(0.90 0.06 300); }
-.badge-resources { background: oklch(0.96 0.04 340); color: oklch(0.45 0.12 340); border: 1px solid oklch(0.90 0.06 340); }
-.badge-figma { background: oklch(0.96 0.04 285); color: oklch(0.45 0.12 285); border: 1px solid oklch(0.90 0.06 285); }
+/* ── Category Specific Badges (solid color + white text) ── */
+.badge-prompts    { background: oklch(0.58 0.18 30);  color: #fff; border: none; }
+.badge-workflows  { background: oklch(0.58 0.18 80);  color: #fff; border: none; }
+.badge-mcp        { background: oklch(0.52 0.16 140); color: #fff; border: none; }
+.badge-agents     { background: oklch(0.52 0.16 200); color: #fff; border: none; }
+.badge-plugins    { background: oklch(0.50 0.18 260); color: #fff; border: none; }
+.badge-automation { background: oklch(0.52 0.18 320); color: #fff; border: none; }
+.badge-research   { background: oklch(0.55 0.20 10);  color: #fff; border: none; }
+.badge-models     { background: oklch(0.58 0.18 60);  color: #fff; border: none; }
+.badge-opensource { background: oklch(0.52 0.16 120); color: #fff; border: none; }
+.badge-tutorials  { background: oklch(0.52 0.14 180); color: #fff; border: none; }
+.badge-news       { background: oklch(0.50 0.16 240); color: #fff; border: none; }
+.badge-startups   { background: oklch(0.52 0.18 300); color: #fff; border: none; }
+.badge-resources  { background: oklch(0.52 0.18 340); color: #fff; border: none; }
+.badge-figma      { background: oklch(0.48 0.18 285); color: #fff; border: none; }
 
 /* ── Buttons ── */
 .btn {
