@@ -271,9 +271,9 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .btn-sm {
-  height: 34px;
-  padding: 0 0.875rem;
-  font-size: 0.8125rem;
+  height: 28px;
+  padding: 0 0.625rem;
+  font-size: 0.75rem;
   border-radius: 2px;
 }
 
