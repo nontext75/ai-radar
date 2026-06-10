@@ -162,17 +162,19 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                     aria-label={`${item.title} 추천`}
                     style={{
                       display: "inline-flex",
+                      flexDirection: "column",
                       alignItems: "center",
-                      gap: "3px",
+                      gap: "1px",
                       background: "none",
                       border: "none",
                       cursor: "pointer",
                       padding: 0,
                       color: theme.meta,
-                      fontSize: "0.75rem",
+                      fontSize: "0.6875rem",
                       fontWeight: 700,
                       fontFamily: "inherit",
                       transition: "color 150ms",
+                      lineHeight: 1,
                     }}
                     onClick={e => { e.preventDefault(); e.stopPropagation(); }}
                     onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
