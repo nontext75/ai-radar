@@ -182,7 +182,7 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                     {item.votes}
                   </button>
                 </div>
-                <BookmarkButton contentId={item.id} size={20} />
+                <BookmarkButton contentId={item.id} size={24} />
               </div>
             </div>
           );
