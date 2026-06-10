@@ -13,17 +13,17 @@
   --border-soft: oklch(0.943 0.005 285);
   --stroke:      oklch(0.882 0.009 285);
 
-  /* ── Brand (Violet primary — Fisdom #4834D4 / #6C5CE7) ── */
-  --primary:       oklch(0.465 0.229 278);
-  --primary-hover: oklch(0.400 0.229 278);
-  --primary-soft:  oklch(0.465 0.229 278 / 0.09);
-  --primary-glow:  oklch(0.465 0.229 278 / 0.04);
-  --primary-light: oklch(0.568 0.202 283);
+  /* ── Brand (Violet primary — #6053AF) ── */
+  --primary:       #6053AF;
+  --primary-hover: #4e4299;
+  --primary-soft:  rgba(96, 83, 175, 0.09);
+  --primary-glow:  rgba(96, 83, 175, 0.04);
+  --primary-light: #7b6ecd;
 
-  /* ── Accent (Teal — Fisdom #2EC4B6) ── */
-  --accent:       oklch(0.742 0.121 185);
-  --accent-hover: oklch(0.660 0.121 185);
-  --accent-soft:  oklch(0.742 0.121 185 / 0.12);
+  /* ── Accent (Teal — #56D1B5) ── */
+  --accent:       #56D1B5;
+  --accent-hover: #3fc0a3;
+  --accent-soft:  rgba(86, 209, 181, 0.12);
 
   /* ── Text (Violet-ink) ── */
   --ink:    oklch(0.13 0.008 278);
