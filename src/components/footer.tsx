@@ -30,7 +30,7 @@ const LINKS = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: "var(--primary)", borderTop: "none" }}>
+    <footer style={{ background: "oklch(0.365 0.229 278)", borderTop: "none" }}>
       <div
         className="page-wrap"
         style={{ paddingBlock: "3.5rem" }}
