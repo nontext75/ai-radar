@@ -136,29 +136,20 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "4px",
-                  padding: "3px 8px",
-                  borderRadius: "4px",
-                  border: "1px solid oklch(0.91 0.006 250)",
-                  background: "oklch(0.97 0.003 250)",
+                  padding: 0,
+                  border: "none",
+                  background: "none",
                   cursor: "pointer",
-                  color: "oklch(0.45 0.02 250)",
+                  color: "var(--subtle)",
                   fontSize: "0.6875rem",
-                  fontWeight: 700,
+                  fontWeight: 400,
                   fontFamily: "inherit",
                   lineHeight: 1,
-                  transition: "background 150ms, color 150ms, border-color 150ms",
+                  transition: "color 150ms",
                   flexShrink: 0,
                 }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.background = "var(--primary-soft, oklch(0.94 0.03 285))";
-                  e.currentTarget.style.color = "var(--primary)";
-                  e.currentTarget.style.borderColor = "oklch(0.80 0.06 285)";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.background = "oklch(0.97 0.003 250)";
-                  e.currentTarget.style.color = "oklch(0.45 0.02 250)";
-                  e.currentTarget.style.borderColor = "oklch(0.91 0.006 250)";
-                }}
+                onMouseEnter={e => { e.currentTarget.style.color = "var(--primary)"; }}
+                onMouseLeave={e => { e.currentTarget.style.color = "var(--subtle)"; }}
               >
                 <UpvoteIcon />
                 {item.votes}
