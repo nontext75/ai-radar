@@ -68,8 +68,8 @@ export default async function Home() {
       {/* ── 카테고리 탐색 ── */}
       <section className="section" style={{ borderTop: "1px solid var(--border)" }}>
         <div className="page-wrap">
-          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-            <h2 style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "0.5rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "var(--space-8)" }}>
+            <h2 style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "var(--space-3)" }}>
               카테고리별 탐색
             </h2>
             <p style={{ fontSize: "0.9375rem", color: "var(--muted)" }}>
@@ -77,7 +77,7 @@ export default async function Home() {
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))", gap: "0.625rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))", gap: "var(--space-3)" }}>
             {cats.map((cat, i) => (
               <Link
                 key={cat.slug}
@@ -105,7 +105,7 @@ export default async function Home() {
 
       {/* ── CTA ── */}
       <section style={{ background: "var(--primary)" }}>
-        <div className="page-wrap" style={{ paddingTop: "4rem", paddingBottom: "4rem", textAlign: "center" }}>
+        <div className="page-wrap" style={{ paddingTop: "var(--space-20)", paddingBottom: "var(--space-20)", textAlign: "center" }}>
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "white", marginBottom: "0.75rem" }}>
             AI 커뮤니티에 함께하세요.
           </h2>

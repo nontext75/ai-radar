@@ -58,6 +58,20 @@
   --z-modal-bg: 300;
   --z-modal:    400;
   --z-toast:    500;
+
+  /* ── Spacing Scale (4pt base) ── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
 }
 
 @theme inline {
@@ -138,28 +152,28 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .page-body-inner {
-  padding-top: 2.5rem;
-  padding-bottom: 5rem;
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
 }
 
 /* ── Section ── */
 .section {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
 }
 
 .section-sm {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-10);
 }
 
 .section-header {
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--space-8);
 }
 
 .section-title {
   font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-3);
 }
 
 .section-desc {
@@ -866,12 +880,12 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ── Responsive ── */
 @media (min-width: 640px) {
-  .section { padding-top: 5rem; padding-bottom: 5rem; }
+  .section { padding-top: 0.75rem; padding-bottom: 0.75rem; }
   .card-featured { grid-column: span 2; }
 }
 
 @media (min-width: 1024px) {
-  .section { padding-top: 6rem; padding-bottom: 6rem; }
+  .section { padding-top: 0.75rem; padding-bottom: 0.75rem; }
 }
 
 /* ── Sidebar Responsive ── */
