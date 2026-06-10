@@ -76,11 +76,12 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
               lineHeight: 1.4,
               color: "var(--ink)",
               margin: "0 0 0.5rem",
+              width: "100%",
             }}>
               <Link
                 href={`/items/${item.id}`}
                 className="prevent-card-click"
-                style={{ textDecoration: "none", color: "inherit" }}
+                style={{ textDecoration: "none", color: "inherit", display: "block", width: "100%" }}
               >
                 {item.title}
               </Link>
