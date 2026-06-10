@@ -20,18 +20,18 @@ import FigmaFeed from "@/components/figma-feed";
 import { fetchItems, fetchCategories } from "@/lib/fetch-data";
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  prompts:    <Terminal size={20} />,
-  workflows:  <TreeStructure size={20} />,
-  mcp:        <Plugs size={20} />,
-  agents:     <Robot size={20} />,
-  plugins:    <PuzzlePiece size={20} />,
-  figma:      <FigmaLogo size={20} />,
-  automation: <Cpu size={20} />,
-  research:   <GraduationCap size={20} />,
-  models:     <Brain size={20} />,
-  opensource: <Code size={20} />,
-  tutorials:  <Compass size={20} />,
-  resources:  <BookBookmark size={20} />,
+  prompts:    <Terminal size={28} />,
+  workflows:  <TreeStructure size={28} />,
+  mcp:        <Plugs size={28} />,
+  agents:     <Robot size={28} />,
+  plugins:    <PuzzlePiece size={28} />,
+  figma:      <FigmaLogo size={28} />,
+  automation: <Cpu size={28} />,
+  research:   <GraduationCap size={28} />,
+  models:     <Brain size={28} />,
+  opensource: <Code size={28} />,
+  tutorials:  <Compass size={28} />,
+  resources:  <BookBookmark size={28} />,
 };
 
 export default async function Home() {
@@ -111,23 +111,17 @@ export default async function Home() {
       </section>
 
       {/* ── 하단 CTA ── */}
-      <section className="section cta-section">
-        <div className="page-wrap">
-          <div className="cta-inner">
-            <div className="cta-icon">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <circle cx="11" cy="11" r="10" stroke="var(--primary)" strokeWidth="1.2" strokeDasharray="3 2.5" />
-                <circle cx="11" cy="11" r="3" fill="var(--primary)" />
-              </svg>
-            </div>
-            <h2 className="cta-title">AI 커뮤니티에 함께하세요.</h2>
-            <p className="cta-desc">
-              발견한 AI 리소스를 공유하고 커뮤니티의 트렌드를 함께 만들어가세요.
-            </p>
-            <Link href="/submit" className="btn btn-primary btn-lg" style={{ minWidth: "180px" }}>
-              리소스 제출하기
-            </Link>
-          </div>
+      <section style={{ background: "var(--primary)", borderTop: "none" }}>
+        <div className="page-wrap" style={{ paddingTop: "4rem", paddingBottom: "4rem", textAlign: "center" }}>
+          <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "white", marginBottom: "0.75rem" }}>
+            AI 커뮤니티에 함께하세요.
+          </h2>
+          <p style={{ fontSize: "1rem", color: "oklch(1 0 0 / 0.75)", marginBottom: "2rem", maxWidth: "40ch", marginInline: "auto" }}>
+            발견한 AI 리소스를 공유하고 커뮤니티의 트렌드를 함께 만들어가세요.
+          </p>
+          <Link href="/submit" className="btn btn-lg" style={{ background: "white", color: "var(--primary)", fontWeight: 700, minWidth: "180px" }}>
+            리소스 제출하기
+          </Link>
         </div>
       </section>
     </>
