@@ -1,5 +1,33 @@
 import { type FeedItem, type CategoryEntry, type CollectionEntry } from "@/lib/data";
 
+function getFallbackRoles(id: number, catSlug: string): string[] {
+  if ([1, 2, 3, 4].includes(id) || (id >= 14 && id <= 25)) {
+    return ['developer', 'designer', 'publisher'];
+  }
+  if ([5, 6, 7, 8, 9].includes(id)) {
+    return ['developer'];
+  }
+  if ([10, 11].includes(id)) {
+    return ['developer', 'pm'];
+  }
+  if ([12, 13].includes(id)) {
+    return ['developer', 'pm'];
+  }
+  if (id >= 77 && id <= 90) {
+    if (catSlug === 'figma' || catSlug === 'designer') {
+      return ['designer', 'developer'];
+    }
+    if (catSlug === 'workflows' || catSlug === 'mcp' || catSlug === 'opensource') {
+      return ['developer'];
+    }
+    if (catSlug === 'pm' || catSlug === 'automation') {
+      return ['developer', 'pm'];
+    }
+    return ['developer', 'pm', 'designer'];
+  }
+  return ['developer'];
+}
+
 interface DBContentItem {
   id: number;
   title: string;
@@ -61,9 +89,36 @@ export async function fetchItems(sort: "trending" | "latest" = "trending", limit
       `);
   }
 
-  const { data, error } = await query
+  let { data, error } = await query
     .order(order, { ascending: false })
     .limit(limit);
+
+  if (error && error.message.includes("column contents.target_roles does not exist")) {
+    let fallbackQuery;
+    if (categorySlug) {
+      fallbackQuery = supabase
+        .from("contents")
+        .select(`
+          id, title, description, url, image_url, votes, created_at, install_guide,
+          categories!inner ( slug, name ),
+          profiles!contents_user_id_fkey ( name )
+        `)
+        .eq("categories.slug", categorySlug);
+    } else {
+      fallbackQuery = supabase
+        .from("contents")
+        .select(`
+          id, title, description, url, image_url, votes, created_at, install_guide,
+          categories ( slug, name ),
+          profiles!contents_user_id_fkey ( name )
+        `);
+    }
+    const res = await fallbackQuery
+      .order(order, { ascending: false })
+      .limit(limit);
+    data = res.data as any;
+    error = res.error;
+  }
 
   if (error || !data) return [];
 
@@ -89,7 +144,9 @@ export async function fetchItems(sort: "trending" | "latest" = "trending", limit
       time:    timeAgo(item.created_at),
       hot:     (item.votes ?? 0) > 300,
       installGuide: item.install_guide  ?? undefined,
-      targetRoles: item.target_roles    ?? [],
+      targetRoles: item.target_roles && item.target_roles.length > 0
+        ? item.target_roles
+        : getFallbackRoles(item.id, categoryInfo?.slug ?? ""),
     };
   });
 }
@@ -129,7 +186,7 @@ export async function fetchItemById(id: string | number): Promise<FeedItem | nul
 
   const supabase = await getSupabase();
 
-  const { data, error } = await supabase
+  let { data, error } = await supabase
     .from("contents")
     .select(`
       id, title, description, url, image_url, votes, created_at, install_guide, target_roles,
@@ -138,6 +195,20 @@ export async function fetchItemById(id: string | number): Promise<FeedItem | nul
     `)
     .eq("id", idNum)
     .single();
+
+  if (error && error.message.includes("column contents.target_roles does not exist")) {
+    const res = await supabase
+      .from("contents")
+      .select(`
+        id, title, description, url, image_url, votes, created_at, install_guide,
+        categories ( slug, name ),
+        profiles!contents_user_id_fkey ( name )
+      `)
+      .eq("id", idNum)
+      .single();
+    data = res.data as any;
+    error = res.error;
+  }
 
   if (error || !data) return null;
 
@@ -162,14 +233,16 @@ export async function fetchItemById(id: string | number): Promise<FeedItem | nul
     time:    timeAgo(data.created_at),
     hot:     (data.votes ?? 0) > 300,
     installGuide: (data as unknown as DBContentItem).install_guide ?? undefined,
-    targetRoles: (data as unknown as DBContentItem).target_roles ?? [],
+    targetRoles: (data as unknown as DBContentItem).target_roles && (data as unknown as DBContentItem).target_roles!.length > 0
+      ? (data as unknown as DBContentItem).target_roles!
+      : getFallbackRoles(data.id, categoryInfo?.slug ?? ""),
   };
 }
 
 export async function searchItems(q: string): Promise<FeedItem[]> {
   const supabase = await getSupabase();
   
-  const { data, error } = await supabase
+  let { data, error } = await supabase
     .from("contents")
     .select(`
       id, title, description, url, image_url, votes, created_at, install_guide, target_roles,
@@ -178,6 +251,20 @@ export async function searchItems(q: string): Promise<FeedItem[]> {
     `)
     .or(`title.ilike.%${q}%,description.ilike.%${q}%`)
     .order("votes", { ascending: false });
+
+  if (error && error.message.includes("column contents.target_roles does not exist")) {
+    const res = await supabase
+      .from("contents")
+      .select(`
+        id, title, description, url, image_url, votes, created_at, install_guide,
+        categories ( slug, name ),
+        profiles!contents_user_id_fkey ( name )
+      `)
+      .or(`title.ilike.%${q}%,description.ilike.%${q}%`)
+      .order("votes", { ascending: false });
+    data = res.data as any;
+    error = res.error;
+  }
 
   if (error || !data) return [];
 
@@ -203,7 +290,9 @@ export async function searchItems(q: string): Promise<FeedItem[]> {
       time:    timeAgo(item.created_at),
       hot:     (item.votes ?? 0) > 300,
       installGuide: item.install_guide  ?? undefined,
-      targetRoles: item.target_roles    ?? [],
+      targetRoles: item.target_roles && item.target_roles.length > 0
+        ? item.target_roles
+        : getFallbackRoles(item.id, categoryInfo?.slug ?? ""),
     };
   });
 }

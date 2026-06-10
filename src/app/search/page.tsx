@@ -3,6 +3,21 @@ import Link from "next/link";
 import { fetchItems, fetchCategories, searchItems } from "@/lib/fetch-data";
 import { SearchBar } from "@/components/search-bar";
 import { Suspense } from "react";
+import { type FeedItem } from "@/lib/data";
+
+function stripMarkdown(md: string): string {
+  if (!md) return "";
+  return md
+    .replace(/\n+/g, " ")
+    .replace(/#+\s*/g, "")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/-\s*/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 const ROLE_LABELS: Record<string, string> = {
   developer: "개발자",
@@ -30,7 +45,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const latestItems = await fetchItems("latest", 5);
   const CATEGORIES = await fetchCategories();
 
-  let searchResults = [];
+  let searchResults: FeedItem[] = [];
   if (decodedQ) {
     searchResults = await searchItems(decodedQ);
   }
@@ -109,7 +124,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                                 {item.title}
                               </Link>
                             </h3>
-                            <p className="feed-item-desc">{item.desc}</p>
+                            <p className="feed-item-desc">{stripMarkdown(item.desc)}</p>
                             <div className="feed-item-meta" style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginTop: "0.375rem" }}>
                               <span>{item.author}</span>
                               <span>·</span>
@@ -158,7 +173,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                               {item.title}
                             </Link>
                           </h3>
-                          <p className="feed-item-desc">{item.desc}</p>
+                          <p className="feed-item-desc">{stripMarkdown(item.desc)}</p>
                           <div className="feed-item-meta" style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginTop: "0.375rem" }}>
                             <span>{item.author}</span>
                             <span>·</span>

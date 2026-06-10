@@ -29,12 +29,14 @@ function FigmaIcon() {
 function stripMarkdown(md: string): string {
   if (!md) return "";
   return md
-    .replace(/#+\s+/g, "")
+    .replace(/\n+/g, " ")
+    .replace(/#+\s*/g, "")
     .replace(/\*\*([^*]+)\*\*/g, "$1")
     .replace(/\*([^*]+)\*/g, "$1")
     .replace(/`([^`]+)`/g, "$1")
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/-\s+/g, "")
+    .replace(/-\s*/g, "")
+    .replace(/\s+/g, " ")
     .trim();
 }
 

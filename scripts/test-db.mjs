@@ -5,8 +5,12 @@ const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZi
 const supabase = createClient(url, key);
 
 const { data, error } = await supabase
-  .from('categories')
-  .select('slug, name, content_count')
+  .from('contents')
+  .select(`
+    id, title, description, url, image_url, votes, created_at, install_guide, target_roles,
+    categories ( slug, name ),
+    profiles!contents_user_id_fkey ( name )
+  `)
   .limit(5);
 
 if (error) {

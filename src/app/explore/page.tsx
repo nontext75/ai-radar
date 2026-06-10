@@ -5,6 +5,20 @@ import { BookmarkButton } from "@/components/bookmark-button";
 import { SearchBar } from "@/components/search-bar";
 import { Suspense } from "react";
 
+function stripMarkdown(md: string): string {
+  if (!md) return "";
+  return md
+    .replace(/\n+/g, " ")
+    .replace(/#+\s*/g, "")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/-\s*/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function ChevronUp() {
   return (
     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
@@ -151,7 +165,7 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
                             {item.title}
                           </Link>
                         </h2>
-                        <p className="feed-item-desc">{item.desc}</p>
+                        <p className="feed-item-desc">{stripMarkdown(item.desc)}</p>
                         <div className="feed-item-meta" style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
                           <span>{item.author}</span>
                           <span>·</span>
