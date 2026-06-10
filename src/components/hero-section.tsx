@@ -3,151 +3,81 @@ import Link from "next/link";
 export default async function HeroSection() {
   return (
     <section
+      className="anim-fade-up"
       style={{
-        borderBottom: "3px solid var(--ink)",
+        position: "relative",
+        overflow: "hidden",
+        paddingTop: "clamp(4.5rem, 10vw, 8rem)",
+        paddingBottom: "clamp(3.5rem, 8vw, 5rem)",
+        borderBottom: "1px solid var(--border)",
         background: "var(--bg)",
       }}
     >
-      {/* 상단 에디토리얼 바 */}
-      <div style={{
-        borderBottom: "1px solid var(--border)",
-        padding: "0.5rem 0",
-      }}>
-        <div className="page-wrap" style={{
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          gap: "1rem",
-        }}>
-          <span style={{
-            fontSize: "0.6875rem", fontWeight: 700, letterSpacing: "0.12em",
-            textTransform: "uppercase", color: "var(--muted)",
-          }}>
-            AI 생태계 디스커버리
-          </span>
-          <div style={{ display: "flex", gap: "1.5rem" }}>
-            {[
-              { label: "프롬프트", href: "/categories/prompts" },
-              { label: "워크플로우", href: "/categories/workflows" },
-              { label: "MCP 서버", href: "/categories/mcp" },
-              { label: "에이전트", href: "/categories/agents" },
-            ].map(({ label, href }) => (
-              <Link key={href} href={href} className="hero-nav-link" style={{
-                fontSize: "0.75rem", fontWeight: 600, color: "var(--muted)",
-              }}>
-                {label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* 메인 히어로 */}
-      <div className="page-wrap" style={{
-        paddingTop: "clamp(3rem, 7vw, 5.5rem)",
-        paddingBottom: "clamp(2.5rem, 5vw, 4rem)",
+      {/* 배경 장식 */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden",
       }}>
         <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto",
-          gap: "3rem",
-          alignItems: "end",
-        }}>
-          {/* 왼쪽: 헤드라인 */}
-          <div>
-            <h1 style={{
-              fontSize: "clamp(2.25rem, 5vw, 3.75rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.05,
-              color: "var(--ink)",
-              marginBottom: "1.75rem",
-            }}>
-              AI 생태계를<br />
-              <span style={{ color: "var(--accent)" }}>먼저</span> 발견하는<br />
-              사람들의 레이더.
-            </h1>
-
-            <p style={{
-              fontSize: "clamp(0.9375rem, 1.5vw, 1.0625rem)",
-              color: "var(--muted)",
-              lineHeight: 1.65,
-              maxWidth: "52ch",
-              marginBottom: "2rem",
-            }}>
-              커뮤니티가 검증한 프롬프트, 워크플로우, MCP 서버, AI 에이전트를 매일 큐레이션합니다. 놓쳤던 것이 없도록.
-            </p>
-
-            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-              <Link href="/trending" className="btn btn-primary btn-lg">
-                트렌딩 보기
-              </Link>
-              <Link href="/submit" className="btn btn-ghost btn-lg">
-                리소스 제출하기
-              </Link>
-            </div>
-          </div>
-
-          {/* 오른쪽: 에디토리얼 스탯 박스 */}
-          <div style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "0",
-            border: "2px solid var(--ink)",
-            borderTop: "4px solid var(--accent)",
-            minWidth: "160px",
-            flexShrink: 0,
-          }}
-            className="hero-stats"
-          >
-            {[
-              { value: "1,200+", label: "큐레이션된 리소스" },
-              { value: "13", label: "카테고리" },
-              { value: "매일", label: "업데이트" },
-            ].map(({ value, label }, i) => (
-              <div key={label} style={{
-                padding: "1rem 1.25rem",
-                borderBottom: i < 2 ? "1.5px solid var(--ink)" : "none",
-              }}>
-                <div style={{
-                  fontSize: "1.75rem", fontWeight: 900, letterSpacing: "-0.04em",
-                  lineHeight: 1, color: "var(--ink)", marginBottom: "0.25rem",
-                }}>
-                  {value}
-                </div>
-                <div style={{
-                  fontSize: "0.6875rem", fontWeight: 600, letterSpacing: "0.06em",
-                  textTransform: "uppercase", color: "var(--muted)",
-                }}>
-                  {label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+          position: "absolute", top: "-30%", right: "-10%", width: "60%", height: "80%",
+          background: "radial-gradient(ellipse at center, var(--primary-glow) 0%, transparent 70%)",
+          opacity: 0.6,
+        }} />
+        <div style={{
+          position: "absolute", bottom: "-20%", left: "-5%", width: "40%", height: "50%",
+          background: "radial-gradient(ellipse at center, var(--primary-glow) 0%, transparent 70%)",
+          opacity: 0.4,
+        }} />
+        <div style={{
+          position: "absolute", top: "10%", right: "15%", width: "200px", height: "200px",
+          background: "radial-gradient(circle, var(--border-soft) 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
+          opacity: 0.3,
+        }} />
       </div>
 
-      {/* 하단 카테고리 스크롤 바 */}
-      <div style={{
-        borderTop: "1px solid var(--border)",
-        background: "var(--accent)",
-        padding: "0.625rem 0",
-        overflow: "hidden",
-      }}>
-        <div className="page-wrap">
-          <div style={{ display: "flex", gap: "0.25rem", flexWrap: "wrap" }}>
-            {[
-              "프롬프트", "워크플로우", "MCP 서버", "AI 에이전트",
-              "플러그인", "오토메이션", "리서치", "AI 모델",
-              "오픈소스", "튜토리얼", "뉴스", "피그마",
-            ].map((tag) => (
-              <span key={tag} style={{
-                fontSize: "0.75rem", fontWeight: 700, color: "white",
-                padding: "0.125rem 0.5rem", opacity: 0.85,
-              }}>
-                {tag}
-              </span>
-            ))}
+      <div className="page-wrap" style={{ position: "relative" }}>
+        <div style={{ maxWidth: "720px", marginInline: "auto", textAlign: "center" }}>
+
+          <h1
+            className="anim-fade-up"
+            style={{
+              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.04em",
+              lineHeight: 1.08,
+              marginBottom: "1.25rem",
+              color: "var(--ink)",
+              textWrap: "balance",
+            }}
+          >
+            AI 생태계의 모든 것을
+            <br />
+            <span style={{ color: "var(--primary)" }}>한 곳에서 발견하세요.</span>
+          </h1>
+
+          <p
+            className="anim-fade-up"
+            style={{
+              fontSize: "clamp(1rem, 2vw, 1.125rem)",
+              color: "var(--muted)",
+              lineHeight: 1.65,
+              maxWidth: "38ch",
+              margin: "0 auto 2.25rem",
+              animationDelay: "0.1s",
+            }}
+          >
+            커뮤니티가 검증한 프롬프트, 워크플로우, MCP 서버, AI 에이전트를 매일 큐레이션합니다.
+          </p>
+
+          <div
+            className="anim-fade-up"
+            style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap", animationDelay: "0.2s" }}
+          >
+            <Link href="/trending" className="btn btn-primary btn-lg" style={{ minWidth: "160px" }}>트렌딩 보기</Link>
+            <Link href="/submit" className="btn btn-secondary btn-lg" style={{ minWidth: "160px" }}>리소스 제출하기</Link>
           </div>
         </div>
+
       </div>
     </section>
   );

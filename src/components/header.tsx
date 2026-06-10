@@ -67,9 +67,9 @@ export default function Header() {
 
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: "7px", flexShrink: 0 }}>
             <div style={{
-              width: "28px", height: "28px",
+              width: "26px", height: "26px",
               background: "var(--primary)",
-              borderRadius: "0",
+              borderRadius: "7px",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -110,8 +110,8 @@ export default function Header() {
                   onClick={() => setProfileOpen((v) => !v)}
                   aria-label="프로필 메뉴"
                   style={{
-                    width: "32px", height: "32px", borderRadius: "0",
-                    overflow: "hidden", border: "2px solid var(--ink)",
+                    width: "32px", height: "32px", borderRadius: "50%",
+                    overflow: "hidden", border: "2px solid var(--border)",
                     background: "var(--primary-soft)", cursor: "pointer",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     padding: 0,
@@ -136,7 +136,7 @@ export default function Header() {
                     <div style={{
                       position: "absolute", right: 0, top: "calc(100% + 8px)",
                       background: "var(--surface)", border: "1px solid var(--border)",
-                      borderRadius: "0", boxShadow: "4px 4px 0 0 var(--ink)",
+                      borderRadius: "var(--r-md)", boxShadow: "0 8px 24px oklch(0 0 0 / 0.1)",
                       minWidth: "180px", zIndex: 100, overflow: "hidden",
                     }}>
                       <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid var(--border)" }}>
