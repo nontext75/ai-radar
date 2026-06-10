@@ -29,7 +29,7 @@ const LINKS = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: "var(--surface-2)", borderTop: "1px solid var(--border)" }}>
+    <footer style={{ background: "var(--primary)", borderTop: "none" }}>
       <div
         className="page-wrap"
         style={{ paddingBlock: "3.5rem" }}
@@ -58,7 +58,7 @@ export default function Footer() {
                 style={{
                   width: "28px",
                   height: "28px",
-                  background: "var(--primary)",
+                  background: "oklch(1 0 0 / 0.15)",
                   borderRadius: "7px",
                   display: "flex",
                   alignItems: "center",
@@ -75,7 +75,7 @@ export default function Footer() {
                 style={{
                   fontSize: "0.9375rem",
                   fontWeight: 800,
-                  color: "var(--ink)",
+                  color: "white",
                   letterSpacing: "-0.02em",
                 }}
               >
@@ -85,7 +85,7 @@ export default function Footer() {
             <p
               style={{
                 fontSize: "0.875rem",
-                color: "var(--muted)",
+                color: "oklch(1 0 0 / 0.7)",
                 lineHeight: 1.65,
                 margin: 0,
                 maxWidth: "22ch",
@@ -109,7 +109,7 @@ export default function Footer() {
                   style={{
                     fontSize: "0.8125rem",
                     fontWeight: 700,
-                    color: "var(--ink)",
+                    color: "white",
                     marginBottom: "1rem",
                     margin: "0 0 1rem",
                   }}
@@ -119,7 +119,7 @@ export default function Footer() {
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.625rem" }}>
                   {group.items.map(({ href, label }) => (
                     <li key={href}>
-                      <Link href={href} className="footer-link">
+                      <Link href={href} style={{ fontSize: "0.875rem", color: "oklch(1 0 0 / 0.65)", transition: "color 150ms" }}>
                         {label}
                       </Link>
                     </li>
@@ -133,7 +133,7 @@ export default function Footer() {
         {/* 하단 바 */}
         <div
           style={{
-            borderTop: "1px solid var(--border)",
+            borderTop: "1px solid oklch(1 0 0 / 0.15)",
             marginTop: "3rem",
             paddingTop: "1.5rem",
             display: "flex",
@@ -143,10 +143,10 @@ export default function Footer() {
             gap: "0.5rem",
           }}
         >
-          <p style={{ fontSize: "0.75rem", color: "var(--subtle)", margin: 0 }}>
+          <p style={{ fontSize: "0.75rem", color: "oklch(1 0 0 / 0.5)", margin: 0 }}>
             © {new Date().getFullYear()} AI 레이더. All rights reserved.
           </p>
-          <p style={{ fontSize: "0.75rem", color: "var(--subtle)", margin: 0 }}>
+          <p style={{ fontSize: "0.75rem", color: "oklch(1 0 0 / 0.5)", margin: 0 }}>
             AI 커뮤니티를 위해 만들었습니다.
           </p>
         </div>
