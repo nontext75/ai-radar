@@ -83,7 +83,7 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                 <span>{item.time}</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
-                <BookmarkButton contentId={item.id} size={11} />
+                <BookmarkButton contentId={item.id} size={15} />
                 <button className="upvote-btn" aria-label={`${item.title} 추천`} style={{ flexDirection: "row", gap: "4px", padding: "4px 8px" }} onClick={e => { e.preventDefault(); e.stopPropagation(); }}>
                   <ChevronUp />
                   {item.votes}

@@ -53,12 +53,13 @@ export function BookmarkButton({ contentId, size = 14, className }: Props) {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        border: "none",
-        background: "none",
+        border: `1.5px solid ${bookmarked ? "var(--primary)" : "var(--border)"}`,
+        background: bookmarked ? "var(--primary-soft)" : "transparent",
+        borderRadius: "2px",
         cursor: "pointer",
-        padding: "4px",
-        color: bookmarked ? "var(--primary)" : "var(--subtle)",
-        transition: "color var(--dur-fast)",
+        padding: "5px 8px",
+        color: bookmarked ? "var(--primary)" : "var(--muted)",
+        transition: "color var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast)",
         opacity: loading ? 0.5 : 1,
       }}
     >
