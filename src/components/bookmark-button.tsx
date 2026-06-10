@@ -57,14 +57,14 @@ export function BookmarkButton({ contentId, size = 14, className }: Props) {
         background: "none",
         cursor: "pointer",
         padding: 0,
-        color: bookmarked ? "var(--primary)" : "oklch(0.72 0.01 250)",
+        color: bookmarked ? "var(--primary)" : "oklch(0.84 0.008 250)",
         transition: "color 150ms",
         opacity: loading ? 0.5 : 1,
         flexShrink: 0,
       }}
 
       onMouseEnter={e => { e.currentTarget.style.color = bookmarked ? "var(--primary)" : "var(--ink)"; }}
-      onMouseLeave={e => { e.currentTarget.style.color = bookmarked ? "var(--primary)" : "oklch(0.72 0.01 250)"; }}
+      onMouseLeave={e => { e.currentTarget.style.color = bookmarked ? "var(--primary)" : "oklch(0.84 0.008 250)"; }}
     >
       <Bookmark size={size} fill="currentColor" stroke="none" />
     </button>
