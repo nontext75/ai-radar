@@ -53,31 +53,18 @@ export function BookmarkButton({ contentId, size = 14, className }: Props) {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        width: "28px",
-        height: "28px",
-        borderRadius: "50%",
-        border: "1px solid oklch(0.92 0.004 250)",
-        background: bookmarked ? "var(--primary-soft, oklch(0.94 0.03 285))" : "oklch(0.97 0.003 250)",
+        border: "none",
+        background: "none",
         cursor: "pointer",
         padding: 0,
-        color: bookmarked ? "var(--primary)" : "oklch(0.60 0.01 250)",
-        transition: "background 150ms, color 150ms, border-color 150ms",
+        color: bookmarked ? "var(--primary)" : "oklch(0.72 0.01 250)",
+        transition: "color 150ms",
         opacity: loading ? 0.5 : 1,
         flexShrink: 0,
       }}
 
-      onMouseEnter={e => {
-        if (!bookmarked) {
-          e.currentTarget.style.background = "oklch(0.93 0.005 250)";
-          e.currentTarget.style.color = "var(--ink)";
-        }
-      }}
-      onMouseLeave={e => {
-        if (!bookmarked) {
-          e.currentTarget.style.background = "oklch(0.97 0.003 250)";
-          e.currentTarget.style.color = "oklch(0.60 0.01 250)";
-        }
-      }}
+      onMouseEnter={e => { e.currentTarget.style.color = bookmarked ? "var(--primary)" : "var(--ink)"; }}
+      onMouseLeave={e => { e.currentTarget.style.color = bookmarked ? "var(--primary)" : "oklch(0.72 0.01 250)"; }}
     >
       <Bookmark size={size} fill="currentColor" stroke="none" />
     </button>
