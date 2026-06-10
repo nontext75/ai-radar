@@ -1,4 +1,3 @@
-// src/components/trending-feed.tsx
 "use client";
 
 import { useState } from "react";
@@ -7,10 +6,10 @@ import { useRouter } from "next/navigation";
 import type { FeedItem } from "@/lib/data";
 import { BookmarkButton } from "@/components/bookmark-button";
 
-function ChevronUp() {
+function UpvoteIcon() {
   return (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-      <path d="M1.5 6.5L5 3L8.5 6.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+      <path d="M1 6L4.5 2.5L8 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -43,96 +42,136 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
 
   return (
     <>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: "1.25rem" }}>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))",
+        gap: "1rem",
+      }}>
         {shown.map((item, idx) => (
-          <div
+          <article
             key={item.id}
             onClick={handleCardClick(item.id)}
             className="card card-elevated anim-fade-up"
             style={{
-              padding: "1.5rem",
+              padding: "1.25rem",
               display: "flex",
               flexDirection: "column",
-              gap: "0.75rem",
-              animationDelay: `${idx * 0.05}s`,
+              gap: "0.625rem",
+              animationDelay: `${idx * 0.04}s`,
               cursor: "pointer",
-              height: "100%",
             }}
           >
-            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "0.5rem" }}>
-              <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.625rem" }}>
+            {/* ── Top row: badge + bookmark ── */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+              <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.6rem", letterSpacing: "0.04em" }}>
                 {item.cat}
               </span>
-              <BookmarkButton contentId={item.id} size={20} />
+              <BookmarkButton contentId={item.id} size={18} />
             </div>
 
-            <h3 style={{ fontSize: "1rem", fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.45, color: "var(--ink)", margin: 0, flex: 1 }}>
-              <Link href={`/items/${item.id}`} className="prevent-card-click" style={{ textDecoration: "none", color: "inherit" }}>
+            {/* ── Title ── */}
+            <h3 style={{
+              fontSize: "0.9375rem",
+              fontWeight: 800,
+              letterSpacing: "-0.025em",
+              lineHeight: 1.35,
+              color: "var(--ink)",
+              margin: 0,
+              textWrap: "balance",
+            }}>
+              <Link
+                href={`/items/${item.id}`}
+                className="prevent-card-click"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
                 {item.title}
               </Link>
             </h3>
 
+            {/* ── Description ── */}
             <p style={{
-              fontSize: "0.875rem",
-              color: "var(--muted)",
-              lineHeight: 1.6,
+              fontSize: "0.8125rem",
+              color: "oklch(0.42 0.015 250)",
+              lineHeight: 1.65,
               margin: 0,
               display: "-webkit-box",
-              WebkitLineClamp: 3,
+              WebkitLineClamp: 2,
               WebkitBoxOrient: "vertical",
               overflow: "hidden",
+              flex: 1,
             }}>
               {stripMarkdown(item.desc.replace(/—/g, ":"))}
             </p>
 
+            {/* ── Footer ── */}
             <div style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginTop: "auto",
+              marginTop: "0.25rem",
               paddingTop: "0.625rem",
-              borderTop: "1px solid var(--border-soft)",
+              borderTop: "1px solid oklch(0.95 0.003 250)",
             }}>
-              <div style={{ display: "flex", gap: "0.5rem", fontSize: "0.75rem", color: "var(--subtle)", alignItems: "center" }}>
-                <span>{item.author}</span>
-                <span aria-hidden="true">·</span>
-                <span>{item.time}</span>
-                <span aria-hidden="true">·</span>
-                <button
-                  aria-label={`${item.title} 추천`}
-                  style={{
-                    display: "inline-flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: "3px",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: 0,
-                    color: "var(--subtle)",
-                    fontSize: "0.6875rem",
-                    fontWeight: 700,
-                    fontFamily: "inherit",
-                    transition: "color 150ms",
-                    lineHeight: 1,
-                  }}
-                  onClick={e => { e.preventDefault(); e.stopPropagation(); }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--accent)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--subtle)")}
-                >
-                  <ChevronUp />
-                  {item.votes}
-                </button>
+              {/* meta */}
+              <div style={{
+                display: "flex",
+                gap: "0.375rem",
+                fontSize: "0.6875rem",
+                color: "var(--subtle)",
+                alignItems: "center",
+                minWidth: 0,
+              }}>
+                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "80px" }}>
+                  {item.author}
+                </span>
+                <span aria-hidden="true" style={{ opacity: 0.4 }}>·</span>
+                <span style={{ whiteSpace: "nowrap" }}>{item.time}</span>
               </div>
+
+              {/* upvote */}
+              <button
+                aria-label={`${item.title} 추천`}
+                onClick={e => { e.preventDefault(); e.stopPropagation(); }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  padding: "3px 8px",
+                  borderRadius: "4px",
+                  border: "1px solid oklch(0.91 0.006 250)",
+                  background: "oklch(0.97 0.003 250)",
+                  cursor: "pointer",
+                  color: "oklch(0.45 0.02 250)",
+                  fontSize: "0.6875rem",
+                  fontWeight: 700,
+                  fontFamily: "inherit",
+                  lineHeight: 1,
+                  transition: "background 150ms, color 150ms, border-color 150ms",
+                  flexShrink: 0,
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = "var(--primary-soft, oklch(0.94 0.03 285))";
+                  e.currentTarget.style.color = "var(--primary)";
+                  e.currentTarget.style.borderColor = "oklch(0.80 0.06 285)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = "oklch(0.97 0.003 250)";
+                  e.currentTarget.style.color = "oklch(0.45 0.02 250)";
+                  e.currentTarget.style.borderColor = "oklch(0.91 0.006 250)";
+                }}
+              >
+                <UpvoteIcon />
+                {item.votes}
+              </button>
             </div>
-          </div>
+          </article>
         ))}
       </div>
 
       {hasMore && (
-        <div style={{ marginTop: "1.25rem" }}>
+        <div style={{ marginTop: "1rem" }}>
           <button
-            onClick={() => setVisible((v) => v + pageSize)}
+            onClick={() => setVisible(v => v + pageSize)}
             className="btn btn-ghost"
             style={{ width: "100%", justifyContent: "center" }}
           >
