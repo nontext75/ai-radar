@@ -6,7 +6,7 @@
 
 :root {
   /* ── Surface (Violet-tinted) ── */
-  --bg:          oklch(0.998 0.002 285);
+  --bg:          oklch(0.970 0.004 250);
   --surface:     oklch(0.993 0.003 285);
   --surface-2:   oklch(0.986 0.004 285);
   --border:      oklch(0.922 0.007 285);
@@ -323,9 +323,10 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ── Cards ── */
 .card {
-  background: var(--bg);
-  border: 1px solid var(--border-soft);
+  background: #fff;
+  border: 1px solid oklch(0.92 0.005 250);
   border-radius: var(--r-lg);
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.06), 0 4px 12px oklch(0 0 0 / 0.06);
   transition: border-color var(--dur-base), transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
 }
 .card:hover {
@@ -336,11 +337,10 @@ button { font-family: inherit; cursor: pointer; }
   transform: scale(0.995);
 }
 
-.card-elevated {
-  /* default 상태 섀도우 없음 */
-}
 .card-elevated:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 16px oklch(0 0 0 / 0.10), 0 1px 4px oklch(0 0 0 / 0.06);
+  border-color: oklch(0.86 0.008 250);
+  transform: translateY(-1px);
 }
 
 .card-flat {
