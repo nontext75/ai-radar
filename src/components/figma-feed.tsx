@@ -1,4 +1,3 @@
-// src/components/figma-feed.tsx
 "use client";
 
 import Link from "next/link";
@@ -6,17 +5,17 @@ import { useRouter } from "next/navigation";
 import type { FeedItem } from "@/lib/data";
 import { BookmarkButton } from "@/components/bookmark-button";
 
-function ChevronUp() {
+function UpvoteIcon() {
   return (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-      <path d="M1.5 6.5L5 3L8.5 6.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+      <path d="M1 6L4.5 2.5L8 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
 function FigmaIcon() {
   return (
-    <svg width="12" height="16" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
+    <svg width="10" height="14" viewBox="0 0 8 12" fill="none" aria-hidden="true" style={{ display: "block", flexShrink: 0 }}>
       <path d="M0 2a2 2 0 0 1 2-2h2v4H2a2 2 0 0 1-2-2z" fill="#F24E1E"/>
       <path d="M4 0h2a2 2 0 0 1 2 2 2 2 0 0 1-2 2H4V0z" fill="#FF7262"/>
       <path d="M0 6a2 2 0 0 1 2-2h2v4H2a2 2 0 0 1-2-2z" fill="#A259FF"/>
@@ -45,94 +44,119 @@ export default function FigmaFeed({ items }: { items: FeedItem[] }) {
 
   const handleCardClick = (id: number | string) => (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
-    if (target.closest("button") || target.closest("a") || target.closest(".prevent-card-click")) {
-      return;
-    }
+    if (target.closest("button") || target.closest("a") || target.closest(".prevent-card-click")) return;
     router.push(`/items/${id}`);
   };
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: "1.25rem" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))", gap: "1rem" }}>
       {items.map((item, idx) => (
-        <div
+        <article
           key={item.id}
           onClick={handleCardClick(item.id)}
-          className="card card-elevated card-figma anim-fade-up"
+          className="card card-elevated anim-fade-up"
           style={{
+            padding: "1.25rem 1.375rem 1.125rem",
             display: "flex",
             flexDirection: "column",
-            position: "relative",
-            overflow: "hidden",
-            animationDelay: `${idx * 0.05}s`,
+            animationDelay: `${idx * 0.04}s`,
             cursor: "pointer",
-            height: "100%",
           }}
         >
-          <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.75rem", flex: 1 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.625rem", display: "inline-flex", alignItems: "center", gap: "5px" }}>
-                <FigmaIcon />
-                {item.cat}
-              </span>
-              {item.hot && (
-                <span className="badge badge-soft" style={{ fontSize: "0.625rem" }}>
-                  인기
-                </span>
-              )}
-            </div>
-
-            <h3 className="feed-item-title" style={{ marginBottom: 0, flex: 1, fontWeight: 700 }}>
-              <Link
-                href={`/items/${item.id}`}
-                className="prevent-card-click"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                {item.title}
-              </Link>
-            </h3>
-            
-            <p
-              className="feed-item-desc"
-              style={{
-                marginBottom: 0,
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-                textOverflow: "ellipsis"
-              }}
-            >
-              {stripMarkdown(item.desc)}
-            </p>
-
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: "auto",
-                paddingTop: "0.75rem",
-                borderTop: "1px solid var(--border-soft)",
-              }}
-              onClick={e => e.stopPropagation()}
-            >
-              <div className="feed-item-meta">
-                <span>{item.author}</span>
-                <span aria-hidden="true">·</span>
-                <span>{item.time}</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
-                <BookmarkButton contentId={item.id} size={11} />
-                <button className="upvote-btn" aria-label={`${item.title} 추천`} style={{ flexDirection: "row", gap: "4px", padding: "4px 8px" }} onClick={e => { e.preventDefault(); e.stopPropagation(); }}>
-                  <ChevronUp />
-                  {item.votes}
-                </button>
-              </div>
-            </div>
+          {/* ── Top row: badge + bookmark ── */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.75rem" }}>
+            <span className={`badge badge-${item.catSlug}`} style={{ fontSize: "0.6rem", letterSpacing: "0.04em", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+              <FigmaIcon />
+              {item.cat}
+            </span>
+            <BookmarkButton contentId={item.id} size={16} />
           </div>
-        </div>
+
+          {/* ── Title ── */}
+          <h3 style={{
+            fontSize: "1rem",
+            fontWeight: 600,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.4,
+            color: "var(--ink)",
+            margin: "0 0 0.5rem",
+            width: "100%",
+          }}>
+            <Link
+              href={`/items/${item.id}`}
+              className="prevent-card-click"
+              style={{ textDecoration: "none", color: "inherit", display: "block", width: "100%" }}
+            >
+              {item.title}
+            </Link>
+          </h3>
+
+          {/* ── Description ── */}
+          <p style={{
+            fontSize: "0.8125rem",
+            color: "oklch(0.52 0.01 250)",
+            lineHeight: 1.6,
+            margin: "0 0 auto",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}>
+            {stripMarkdown(item.desc.replace(/—/g, ":"))}
+          </p>
+
+          {/* ── Footer ── */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingTop: "0.75rem",
+            marginTop: "0.875rem",
+            borderTop: "1px solid oklch(0.94 0.003 250)",
+          }}>
+            <div style={{
+              display: "flex",
+              gap: "0.3rem",
+              fontSize: "0.6875rem",
+              color: "oklch(0.60 0.01 250)",
+              alignItems: "center",
+              minWidth: 0,
+            }}>
+              <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "90px" }}>
+                {item.author}
+              </span>
+              <span aria-hidden="true" style={{ opacity: 0.35 }}>·</span>
+              <span style={{ whiteSpace: "nowrap" }}>{item.time}</span>
+            </div>
+
+            <button
+              aria-label={`${item.title} 추천`}
+              onClick={e => { e.preventDefault(); e.stopPropagation(); }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "3px",
+                padding: 0,
+                border: "none",
+                background: "none",
+                cursor: "pointer",
+                color: "oklch(0.60 0.01 250)",
+                fontSize: "0.6875rem",
+                fontWeight: 400,
+                fontFamily: "inherit",
+                lineHeight: 1,
+                transition: "color 150ms",
+                flexShrink: 0,
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = "var(--primary)"; }}
+              onMouseLeave={e => { e.currentTarget.style.color = "oklch(0.60 0.01 250)"; }}
+            >
+              <UpvoteIcon />
+              {item.votes}
+            </button>
+          </div>
+        </article>
       ))}
     </div>
   );
 }
-
