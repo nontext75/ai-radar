@@ -102,9 +102,9 @@ export default function TrendingFeed({ items, pageSize = 6 }: { items: FeedItem[
                   aria-label={`${item.title} 추천`}
                   style={{
                     display: "inline-flex",
-                    flexDirection: "column",
+                    flexDirection: "row",
                     alignItems: "center",
-                    gap: "1px",
+                    gap: "3px",
                     background: "none",
                     border: "none",
                     cursor: "pointer",
